@@ -10,7 +10,7 @@ public interface FirebaseStorageService {
     final String BucketName = "homeawaydb-2b02b.appspot.com";
 
     //Esta es la ruta básica de este proyecto homeaway
-    final String rutaSuperiorStorage = "homeAwayDB";
+    final String rutaSuperiorStorage = "homeAwayDB"; // o solo homeaway o desarrollowebG4 REVISAR LUEGO
 
     //Ubicación donde se encuentra el archivo de configuración Json
     final String rutaJsonFile = "firebase";
