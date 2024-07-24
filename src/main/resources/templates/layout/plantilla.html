@@ -10,6 +10,43 @@
         <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     </head>
     <body>
+
+        <header th:fragment="header" class="header">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" th:href="@{/}">
+                        [[${application.titulo}]]
+                        <img src="/imgs/logoHA.png" alt="Logo" width="35" height="35" class="d-inline-block align-text-top">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/features}">Accommodations</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/pricing}">Bookings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/rent}">Rent With Us</a>
+                            </li>
+                        </ul>
+                        <!-- Botón Log In -->
+                        <div class="ms-auto">
+                            <a class="btn btn-outline-secondary" th:href="@{/login}" role="button">Log In</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+
+        <!--  
         <header th:fragment="header" class="header">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
                 <div class="container">
@@ -33,15 +70,31 @@
                 </div>
             </nav>
         </header>
-        <footer th:fragment="footer" class="bg-info text-white mt-5 p-2">
-            <div class="container">
-                <div class="col">
-                    <p class="led text-center">
-                        &COPY;[[#{plantilla.derechos}]]                        
-                    </p>
-                </div>                
+        -->
+        <footer th:fragment="footer" class="bg-body-tertiary text-center" style="background-color: #212529; padding: 1rem 0;">
+            <div class="container px-3 py-2">
+                <!-- Section: Social media -->
+                <section class="mb-2 w-50 mx-auto">
+                    <!-- Facebook -->
+                    <a data-mdb-ripple-init class="btn text-white btn-floating mx-1" style="background-color: #3b5998;" href="#!" role="button">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <!-- Twitter -->
+                    <a data-mdb-ripple-init class="btn text-white btn-floating mx-1" style="background-color: #55acee;" href="#!" role="button">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <!-- Instagram -->
+                    <a data-mdb-ripple-init class="btn text-white btn-floating mx-1" style="background-color: #ac2bac;" href="#!" role="button">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </section>       
             </div>
+            <!-- Copyright -->
+            <div class="text-center py-2" style="background-color: #212529; color: #93928e">
+                &COPY; [[#{plantilla.derechos}]]
+            </div>           
         </footer>
+
     </body>
 </html>
 
