@@ -16,6 +16,7 @@ public interface AlojamientoService {
 //    void eliminarAlojamiento(Long id);
     public List<Alojamiento> getAlojamientos(boolean activos);
     public Alojamiento getAlojamiento(Alojamiento alojamiento);
+    Optional<Alojamiento> buscarAlojamientoPorId(Long id);
     public void save(Alojamiento alojamiento);
     public void delete(Alojamiento alojamiento);
 

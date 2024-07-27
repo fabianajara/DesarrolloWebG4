@@ -36,5 +36,5 @@ public class Alojamiento implements Serializable {
     private double calificacion;
     private String rutaImagen;
     private boolean activo;
-
+    
 }

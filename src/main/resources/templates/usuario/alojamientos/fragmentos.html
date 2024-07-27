@@ -8,22 +8,21 @@
 </head>
 <body>
     
-    <!-- Seccion que muestra todos los alojamientos registros hasta ahora -->
+   <!-- Sección que muestra todos los alojamientos -->
     <section th:fragment="listadoTodosAlojamientos" class="light" style="background: #d5e6f7; padding-bottom: 2rem;">
         <div class="container py-2">
-            <div class="h1 text-center text-dark" id="pageHeaderTitle" style="font-size: 2.5rem; text-align: center; margin: 2rem 0;">
-                Listado de Alojamientos
+            <div class="h1 text-center text-dark" id="pageHeaderTitle" style="font-size: 2.5rem; margin: 2rem 0;">
+                Listado TODOS Alojamientos
             </div>
-
             <div class="row">
                 <div class="col-md-4" th:each="alojamiento : ${alojamientos}">
-                    <div class="card shadow">
+                    <div class="card shadow mb-4">
                         <img th:src="@{${alojamiento.rutaImagen}}" class="card-img-top" alt="Imagen del Alojamiento">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${alojamiento.nombre}">Nombre del Alojamiento</h5>
                             <p class="card-text" th:text="${alojamiento.descripcion}">Descripción del Alojamiento</p>
                             <p class="card-text">Precio por Noche: <span th:text="${alojamiento.precioNoche}">Precio</span></p>
-                            <p class="card-text">Ubicación: <span th:text="${alojamiento.ubicacion}">Ubicación</span></p>
+                            <p class="card-text">Ubicación: <span th:text="${alojamiento.ubicacion}">Ubicación</span></p>                          
                             <a th:href="@{/usuario/alojamientos/{id}(id=${alojamiento.idAlojamiento})}" class="btn btn-primary">Ver Detalle</a>
                         </div>
                     </div>
@@ -31,6 +30,7 @@
             </div>
         </div>
     </section>
+   
     <section th:replace="~{usuario/alojamientos/detalle :: detalleAlojamiento}"></section>
 
 </body>

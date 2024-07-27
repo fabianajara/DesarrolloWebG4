@@ -70,4 +70,9 @@ public class AlojamientoServiceImpl implements AlojamientoService {
     public void delete(Alojamiento alojamiento) {
         alojamientoDao.delete(alojamiento); // Eliminar el ID (alojamiento)
     }
+    
+    @Override
+    public Optional<Alojamiento> buscarAlojamientoPorId(Long id) {
+        return alojamientoDao.findById(id);
+    }
 }

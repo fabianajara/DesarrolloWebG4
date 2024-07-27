@@ -73,7 +73,7 @@ public class PropietarioAlojamientoController {
         var alojamientos = alojamientoService.getAlojamientos(false);
         model.addAttribute("alojamientos", alojamientos);
         model.addAttribute("totalAlojamientos", alojamientos.size());
-        return "propietario/alojamientos/listado"; 
+        return "propietario/alojamientos/listado";
     }
 
     @GetMapping("/nuevo")
