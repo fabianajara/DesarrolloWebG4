@@ -37,7 +37,4 @@ public class Alojamiento implements Serializable {
     private String rutaImagen;
     private boolean activo;
 
-    @OneToMany(mappedBy = "alojamiento", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Disponibilidad> disponibilidades;
-
 }

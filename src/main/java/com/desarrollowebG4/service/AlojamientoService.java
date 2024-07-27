@@ -6,12 +6,17 @@ import java.util.Optional;
 
 public interface AlojamientoService {
 
-    // Service general para los aloamientos
-    List<Alojamiento> listarAlojamientos();
+//    // Service general para los aloamientos
+//    List<Alojamiento> listarAlojamientos();
+//
+//    Optional<Alojamiento> buscarAlojamientoPorId(Long id);
+//
+//    Alojamiento guardarAlojamiento(Alojamiento alojamiento);
+//
+//    void eliminarAlojamiento(Long id);
+    public List<Alojamiento> getAlojamientos(boolean activos);
+    public Alojamiento getAlojamiento(Alojamiento alojamiento);
+    public void save(Alojamiento alojamiento);
+    public void delete(Alojamiento alojamiento);
 
-    Optional<Alojamiento> buscarAlojamientoPorId(Long id);
-
-    Alojamiento guardarAlojamiento(Alojamiento alojamiento);
-
-    void eliminarAlojamiento(Long id);
 }
