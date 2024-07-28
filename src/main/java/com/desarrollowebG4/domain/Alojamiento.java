@@ -23,7 +23,7 @@ public class Alojamiento implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuario usuario;
+    private Usuario anfitrion;
 
     private String nombre;
     private String descripcion;
@@ -36,5 +36,5 @@ public class Alojamiento implements Serializable {
     private double calificacion;
     private String rutaImagen;
     private boolean activo;
-    
+
 }

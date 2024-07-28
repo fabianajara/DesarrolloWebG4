@@ -89,7 +89,24 @@
                             <!-- Sección de los detalles escritos -->
                             
                             <!-- Sección de ubicación -->
-                            <h5 th:text="${alojamiento.ubicacion}" style="color: #567EDC; margin-bottom: 13px; font-weight: bold;">Ubicación del Alojamiento</h5>
+                             <div style="display: flex; align-items: center;"> 
+                                <img src="/imgs/Location-icon.png" alt="Ícono de Ubicación" style="width: 20px; height: 20px; margin-right: 5px;">
+                                <h5 class="card-text" th:text="${alojamiento.ubicacion}" style="color: #567EDC; font-weight: bold; margin: 0;">Ubicación del Alojamiento</h5>
+                            </div>
+                           
+                            
+                            <!-- Foto de perfl de anfitrion -->
+                            <div style="display: flex; align-items: center; margin-top: 10px; margin-bottom: 10px;">
+                                <img 
+                                    style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" 
+                                    th:src="@{${alojamiento.anfitrion.rutaImagen}}" 
+                                    alt="Foto del Anfitrión" 
+                                />
+                                <div style="margin-left: 15px;">
+                                    <span style="font-weight: bold;">Anfitrión:</span> 
+                                    <span th:text="${alojamiento.anfitrion.nombre}">Nombre del Anfitrión</span>
+                                </div>
+                            </div>
                             
                             <!-- Descripción del alojamiento -->
                             <p style="margin-bottom: 13px;">
