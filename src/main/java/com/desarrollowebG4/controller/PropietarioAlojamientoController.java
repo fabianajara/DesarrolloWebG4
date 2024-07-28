@@ -1,7 +1,7 @@
-
 package com.desarrollowebG4.controller;
 
 import com.desarrollowebG4.domain.Alojamiento;
+import com.desarrollowebG4.domain.Usuario;
 import com.desarrollowebG4.service.AlojamientoService;
 import com.desarrollowebG4.service.impl.FirebaseStorageServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +59,7 @@ import org.springframework.web.multipart.MultipartFile;
 //}
 @Controller
 @Slf4j
-@RequestMapping("/propietario/alojamientos") 
+@RequestMapping("/propietario/alojamientos")
 public class PropietarioAlojamientoController {
 
     @Autowired
@@ -78,12 +78,40 @@ public class PropietarioAlojamientoController {
 
     @GetMapping("/nuevo")
     public String nuevoAlojamiento(Alojamiento alojamiento) {
-        return "propietario/alojamientos/modifica"; 
+        return "propietario/alojamientos/modifica";
     }
 
     @PostMapping("/guardar")
     public String guardarAlojamiento(Alojamiento alojamiento,
-                                     @RequestParam("imagenFile") MultipartFile imagenFile) {
+            @RequestParam("imagenFile") MultipartFile imagenFile) {
+        if (alojamiento.getIdAlojamiento() != null) {
+            // Si el alojamiento ya existe, obtén la instancia persistente
+            Alojamiento alojamientoExistente = alojamientoService.getAlojamiento(alojamiento);
+
+            if (alojamientoExistente != null) {
+                // Actualiza los campos del alojamiento existente con los nuevos valores
+                alojamientoExistente.setNombre(alojamiento.getNombre());
+                alojamientoExistente.setDescripcion(alojamiento.getDescripcion());
+                alojamientoExistente.setAlojamientoTipo(alojamiento.getAlojamientoTipo());
+                alojamientoExistente.setNumHabitaciones(alojamiento.getNumHabitaciones());
+                alojamientoExistente.setNumBanos(alojamiento.getNumBanos());
+                alojamientoExistente.setCapacidad(alojamiento.getCapacidad());
+                alojamientoExistente.setPrecioNoche(alojamiento.getPrecioNoche());
+                alojamientoExistente.setUbicacion(alojamiento.getUbicacion());
+                alojamientoExistente.setCalificacion(alojamiento.getCalificacion());
+                alojamientoExistente.setActivo(alojamiento.isActivo());
+
+                // Gestiona las fotos
+                if (alojamiento.getFotos() != null) {
+                    // Limpiar la lista de fotos existentes y añadir las nuevas fotos
+                    alojamientoExistente.getFotos().clear();
+                    alojamientoExistente.getFotos().addAll(alojamiento.getFotos());
+                }
+
+                alojamiento = alojamientoExistente;
+            }
+        }
+
         if (!imagenFile.isEmpty()) {
             alojamientoService.save(alojamiento);
             alojamiento.setRutaImagen(

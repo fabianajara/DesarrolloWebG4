@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
 </head>
 <body>
     <header th:replace="~{layout/plantilla :: header}"></header>    
@@ -23,58 +24,40 @@
                         </div>
                         
                         <div class="preview col-md-6" style="flex-direction: column;">                            
-                            <!-- Sección de las imágenes GRANDES -->
-                            <div class="preview-pic tab-content" style="overflow: hidden;">
-                                <div class="tab-pane active" id="pic-1">
-                                    <img th:src="@{${alojamiento.rutaImagen}}" alt="Imagen del Alojamiento" style="max-width: 100%;" />
-                                </div>
-                            <div th:each="foto, iter : ${fotos}" class="tab-pane" th:id="'pic-' + ${iter.index + 2}">
-                                <img th:src="@{${foto.rutaImagen}}" alt="Imagen adicional" style="max-width: 100%;" />
-                            </div>
-                                <!--  
-                                <div class="tab-pane" id="pic-3">
-                                    <img src="http://placekitten.com/400/252" alt="Imagen alternativa" style="max-width: 100%;" />
-                                </div>
-                                <div class="tab-pane" id="pic-4">
-                                    <img src="http://placekitten.com/400/252" alt="Imagen alternativa" style="max-width: 100%;" />
-                                </div>
-                                <div class="tab-pane" id="pic-5">
-                                    <img src="http://placekitten.com/400/252" alt="Imagen alternativa" style="max-width: 100%;" />
-                                </div>
-                                -->
-                            </div>
+                            
+<!-- Carrusel de imágenes -->
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+        <!-- Indicadores del carrusel -->
+        <li th:each="foto, iter : ${fotos}" 
+            th:class="${iter.index == 0} ? 'active' : ''" 
+            data-bs-target="#carouselExampleIndicators" 
+            th:data-bs-slide-to="${iter.index}">
+        </li>
+    </ol>
+    <div class="carousel-inner">
+        <!-- Imagen principal del alojamiento -->
+        <div class="carousel-item active">
+            <img th:src="@{${alojamiento.rutaImagen}}" class="d-block w-100" alt="Imagen del Alojamiento" />
+        </div>
+        <!-- Imágenes adicionales -->
+        <div th:each="foto, iter : ${fotos}">
+            <div th:class="${iter.index == 0} ? 'carousel-item active' : 'carousel-item'}">
+                <img th:src="@{${foto.rutaImagen}}" class="d-block w-100" alt="Imagen adicional" />
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </a>
+</div>
 
-                            <!-- Sección de las imágenes PEQUEÑAS -->
-                            <ul class="preview-thumbnail nav nav-tabs" style="border: none; margin-top: 15px;">
-                                <li class="active" style="width: 18%; margin-right: 2.5%;">
-                                    <a data-target="#pic-1" data-toggle="tab">
-                                        <img th:src="@{${alojamiento.rutaImagen}}" alt="Imagen del Alojamiento" style="max-width: 100%; display: block;" />
-                                    </a>
-                                </li>
-                                <li th:each="foto, iter : ${fotos}" style="width: 18%; margin-right: 2.5%;" th:classappend="${iter.index == 0} ? 'active' : ''">
-                                    <a th:data-target="'#pic-' + ${iter.index + 2}" data-toggle="tab">
-                                        <img th:src="@{${foto.rutaImagen}}" alt="Imagen adicional" style="max-width: 100%; display: block;" />
-                                    </a>
-                                </li>
-                                
-                                <!-- 
-                                <li style="width: 18%; margin-right: 2.5%;">
-                                    <a data-target="#pic-3" data-toggle="tab">
-                                        <img src="http://placekitten.com/200/126" alt="Imagen alternativa" style="max-width: 100%; display: block;" />
-                                    </a>
-                                </li>
-                                <li style="width: 18%; margin-right: 2.5%;">
-                                    <a data-target="#pic-4" data-toggle="tab">
-                                        <img src="http://placekitten.com/200/126" alt="Imagen alternativa" style="max-width: 100%; display: block;" />
-                                    </a>
-                                </li>
-                                <li style="width: 18%;">
-                                    <a data-target="#pic-5" data-toggle="tab">
-                                        <img src="http://placekitten.com/200/126" alt="Imagen alternativa" style="max-width: 100%; display: block;" />
-                                    </a>
-                                </li>
-                                 -->
-                            </ul>
+                            
                         </div>
 
                         <!-- Sección de detalles del alojamiento -->
@@ -87,7 +70,7 @@
                                     <span class="fa fa-star checked" th:if="${alojamiento.calificacion >= 2}" style="color: #ff9f1a;"></span>
                                     <span class="fa fa-star checked" th:if="${alojamiento.calificacion >= 3}" style="color: #ff9f1a;"></span>
                                     <span class="fa fa-star checked" th:if="${alojamiento.calificacion >= 4}" style="color: #ff9f1a;"></span>
-                                    <span class="fa fa-star" th:if="${alojamiento.calificacion < 5}" style="color: #ff9f1a;"></span>
+                                    <span class="fa fa-star checked" th:if="${alojamiento.calificacion >= 5}" style="color: #ff9f1a;"></span>
                                 </div>
                                 <!-- CUANDO ESTÉN LAS RESEÑAS -->
                                 <!-- <span class="review-no" th:text="${alojamiento.numReviews} + ' reviews'" style="margin-left: 10px;">41 reviews</span>-->

@@ -1,8 +1,11 @@
 package com.desarrollowebG4.controller;
 
 import com.desarrollowebG4.domain.Alojamiento;
+import com.desarrollowebG4.domain.FotoAlojamiento;
 import com.desarrollowebG4.domain.Usuario;
 import com.desarrollowebG4.service.AlojamientoService;
+import com.desarrollowebG4.service.FotoAlojamientoService;
+import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,9 @@ public class UsuarioAlojamientoController {
 
     @Autowired
     private AlojamientoService alojamientoService;
+    
+    @Autowired
+    private FotoAlojamientoService fotoAlojamientoService;
 
     @GetMapping("")
     public String listadoPropiedades(Model model) {
@@ -36,6 +42,7 @@ public class UsuarioAlojamientoController {
 //            System.out.println("Anfitrion: " + (anfitrion != null ? anfitrion.getNombre() : "null"));
 //            model.addAttribute("alojamiento", alojamiento);
 //            model.addAttribute("anfitrion", anfitrion);
+//            model.addAttribute("fotos", alojamiento.getFotos());
 //            return "usuario/alojamientos/detalle";
 //        } else {
 //            model.addAttribute("error", "Alojamiento no encontrado");
@@ -48,10 +55,10 @@ public class UsuarioAlojamientoController {
         if (optionalAlojamiento.isPresent()) {
             Alojamiento alojamiento = optionalAlojamiento.get();
             Usuario anfitrion = alojamiento.getAnfitrion();
-            System.out.println("Anfitrion: " + (anfitrion != null ? anfitrion.getNombre() : "null"));
+            List<FotoAlojamiento> fotos = fotoAlojamientoService.findFotosByAlojamiento(alojamiento);
             model.addAttribute("alojamiento", alojamiento);
             model.addAttribute("anfitrion", anfitrion);
-            model.addAttribute("fotos", alojamiento.getFotos());
+            model.addAttribute("fotos", fotos);
             return "usuario/alojamientos/detalle";
         } else {
             model.addAttribute("error", "Alojamiento no encontrado");
