@@ -26,7 +26,22 @@ public class UsuarioAlojamientoController {
         model.addAttribute("alojamientos", alojamientos);
         return "usuario/alojamientos/listado";
     }
-    
+
+//    @GetMapping("/{id}")
+//    public String verAlojamiento(@PathVariable("id") Long id, Model model) {
+//        Optional<Alojamiento> optionalAlojamiento = alojamientoService.buscarAlojamientoPorId(id);
+//        if (optionalAlojamiento.isPresent()) {
+//            Alojamiento alojamiento = optionalAlojamiento.get();
+//            Usuario anfitrion = alojamiento.getAnfitrion();
+//            System.out.println("Anfitrion: " + (anfitrion != null ? anfitrion.getNombre() : "null"));
+//            model.addAttribute("alojamiento", alojamiento);
+//            model.addAttribute("anfitrion", anfitrion);
+//            return "usuario/alojamientos/detalle";
+//        } else {
+//            model.addAttribute("error", "Alojamiento no encontrado");
+//            return "usuario/alojamientos";
+//        }
+//    }
     @GetMapping("/{id}")
     public String verAlojamiento(@PathVariable("id") Long id, Model model) {
         Optional<Alojamiento> optionalAlojamiento = alojamientoService.buscarAlojamientoPorId(id);
@@ -36,6 +51,7 @@ public class UsuarioAlojamientoController {
             System.out.println("Anfitrion: " + (anfitrion != null ? anfitrion.getNombre() : "null"));
             model.addAttribute("alojamiento", alojamiento);
             model.addAttribute("anfitrion", anfitrion);
+            model.addAttribute("fotos", alojamiento.getFotos());
             return "usuario/alojamientos/detalle";
         } else {
             model.addAttribute("error", "Alojamiento no encontrado");

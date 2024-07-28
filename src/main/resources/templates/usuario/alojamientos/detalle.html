@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/plantilla :: head}">
@@ -20,16 +21,17 @@
                         <div class="container" style="margin-top: 5px; margin-bottom: 10px">
                             <button type="button" class="btn btn-secondary" onclick="window.history.back();">Volver Atras</button>
                         </div>
-                        <div class="preview col-md-6" style="flex-direction: column;">
-                            
+                        
+                        <div class="preview col-md-6" style="flex-direction: column;">                            
                             <!-- Sección de las imágenes GRANDES -->
                             <div class="preview-pic tab-content" style="overflow: hidden;">
                                 <div class="tab-pane active" id="pic-1">
                                     <img th:src="@{${alojamiento.rutaImagen}}" alt="Imagen del Alojamiento" style="max-width: 100%;" />
                                 </div>
-                                <div class="tab-pane" id="pic-2">
-                                    <img src="http://placekitten.com/400/252" alt="Imagen alternativa" style="max-width: 100%;" />
-                                </div>
+                            <div th:each="foto, iter : ${fotos}" class="tab-pane" th:id="'pic-' + ${iter.index + 2}">
+                                <img th:src="@{${foto.rutaImagen}}" alt="Imagen adicional" style="max-width: 100%;" />
+                            </div>
+                                <!--  
                                 <div class="tab-pane" id="pic-3">
                                     <img src="http://placekitten.com/400/252" alt="Imagen alternativa" style="max-width: 100%;" />
                                 </div>
@@ -39,6 +41,7 @@
                                 <div class="tab-pane" id="pic-5">
                                     <img src="http://placekitten.com/400/252" alt="Imagen alternativa" style="max-width: 100%;" />
                                 </div>
+                                -->
                             </div>
 
                             <!-- Sección de las imágenes PEQUEÑAS -->
@@ -48,11 +51,13 @@
                                         <img th:src="@{${alojamiento.rutaImagen}}" alt="Imagen del Alojamiento" style="max-width: 100%; display: block;" />
                                     </a>
                                 </li>
-                                <li style="width: 18%; margin-right: 2.5%;">
-                                    <a data-target="#pic-2" data-toggle="tab">
-                                        <img src="http://placekitten.com/200/126" alt="Imagen alternativa" style="max-width: 100%; display: block;" />
+                                <li th:each="foto, iter : ${fotos}" style="width: 18%; margin-right: 2.5%;" th:classappend="${iter.index == 0} ? 'active' : ''">
+                                    <a th:data-target="'#pic-' + ${iter.index + 2}" data-toggle="tab">
+                                        <img th:src="@{${foto.rutaImagen}}" alt="Imagen adicional" style="max-width: 100%; display: block;" />
                                     </a>
                                 </li>
+                                
+                                <!-- 
                                 <li style="width: 18%; margin-right: 2.5%;">
                                     <a data-target="#pic-3" data-toggle="tab">
                                         <img src="http://placekitten.com/200/126" alt="Imagen alternativa" style="max-width: 100%; display: block;" />
@@ -68,6 +73,7 @@
                                         <img src="http://placekitten.com/200/126" alt="Imagen alternativa" style="max-width: 100%; display: block;" />
                                     </a>
                                 </li>
+                                 -->
                             </ul>
                         </div>
 
