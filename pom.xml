@@ -15,7 +15,7 @@
     <description>Proyecto Final Desarrollo de Aplicaciones Web. Grupo 4.</description>
         
     <properties>
-        <java.version>22</java.version>
+        <java.version>19</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -80,11 +80,6 @@
             <groupId>com.google.firebase</groupId>
             <artifactId>firebase-admin</artifactId>
             <version>9.2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
         </dependency>
 
     </dependencies>

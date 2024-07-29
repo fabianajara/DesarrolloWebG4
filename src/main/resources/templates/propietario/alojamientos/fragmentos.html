@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantilla :: head}">
+    <title>HomeAways</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Sección para crear el botón de agregar... llamará a una ventana modal -->
+    <section th:fragment="botonesAgregar" class="py-4 mb-0" style="background-color: #d5e6f7; text-align: center;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"> 
+                    <button 
+                        type="button" 
+                        class="btn btn-primary btn-block" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#agregarAlojamiento" 
+                        style="background-color: #007bff; border-color: #007bff; margin: 0;"> 
+                        <i class="fas fa-plus"></i> [[#{alojamiento.agregar}]]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección que muestra todos los alojamientos -->
+    <section th:fragment="listadoMisAlojamientos" class="light" style="background: #d5e6f7; padding: 1rem 0 2rem; margin-top: 0;">
+        <div class="container py-2">
+            <div class="h1 text-center text-dark" id="pageHeaderTitle" style="font-size: 2.5rem; margin: 1rem 0;">
+                Listado Mis Alojamientos
+            </div>
+            <div class="row" style="display: flex; flex-wrap: wrap; margin: -10px;">
+                <div class="col-md-4" th:each="alojamiento : ${alojamientos}" style="padding: 10px;">
+                    <div class="card shadow mb-4" style="height: 100%;">
+                        <img 
+                            th:src="@{${alojamiento.rutaImagen}}" 
+                            class="card-img-top" 
+                            alt="Imagen del Alojamiento" 
+                            style="width: 100%; height: 200px; object-fit: cover;"
+                        />
+                        <div class="card-body" style="display: flex; flex-direction: column; flex-grow: 1;">
+                            <h5 class="card-title" th:text="${alojamiento.nombre}" style="font-weight: bold; text-transform: capitalize;">Nombre del Alojamiento</h5>
+
+                            <div style="display: flex; align-items: center; margin-top: 10px; margin-bottom: 10px;">
+                                <img 
+                                    style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" 
+                                    th:src="@{${alojamiento.anfitrion.rutaImagen}}" 
+                                    alt="Foto del Anfitrión" 
+                                />
+                                <div style="margin-left: 15px;">
+                                    <span style="font-weight: bold;">Anfitrión:</span> 
+                                    <span th:text="${alojamiento.anfitrion.nombre}">Nombre del Anfitrión</span>
+                                </div>
+                            </div>
+
+                            <p class="card-text" th:text="${alojamiento.descripcion}" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Descripción del Alojamiento</p>
+                            <p class="card-text">Precio por Noche: <span th:text="${alojamiento.precioNoche}">Precio</span></p>
+
+                            <div style="display: flex; align-items: center;">
+                                <img src="/imgs/Location-icon.png" alt="Ícono de Ubicación" style="width: 20px; height: 20px; margin-right: 5px;">
+                                <p class="card-text" style="margin: 0;">Ubicación: <span th:text="${alojamiento.ubicacion}">Ubicación</span></p>
+                            </div>
+
+                            <div style="margin-top: auto; text-align: center;"> <!-- Centra los botones -->
+                                <a th:href="@{/propietario/alojamientos/modificar/{id}(id=${alojamiento.idAlojamiento})}" class="btn btn-primary" style="margin-right: 10px;">Editar Alojamiento</a>
+                                <a th:href="@{/propietario/alojamientos/eliminar/{id}(id=${alojamiento.idAlojamiento})}" class="btn btn-danger">Eliminar Alojamiento</a>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Fragmento para agregar alojamiento, es la ventana modal -->
+    <section th:fragment="agregarAlojamiento">
+        <div id="agregarAlojamiento" 
+             class="modal fade" 
+            tabindex="-1" 
+            aria-labelledby="exampleModalLabel" 
+            aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title">[[#{alojamiento.agregar}]]</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div> 
+                    <form th:action="@{/propietario/alojamiento/guardar}" th:object="${alojamiento}"
+                        method="POST" class="was-validated" enctype="multipart/form-data">
+
+                        <input type="hidden" name="nuevaImagen" value="NO"/>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="nombre">[[#{alojamiento.nombre}]]</label>
+                                <input type="text" class="form-control" name="nombre" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcion">[[#{alojamiento.descripcion}]]</label>
+                                <textarea class="form-control" name="descripcion" rows="3" required="true"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="alojamiento_tipo">[[#{alojamiento.tipo}]]</label>
+                                <input type="text" class="form-control" name="alojamientoTipo" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="num_habitaciones">[[#{alojamiento.numHabitaciones}]]</label>
+                                <input type="number" class="form-control" name="numHabitaciones" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="num_banos">[[#{alojamiento.numBanos}]]</label>
+                                <input type="number" class="form-control" name="numBanos" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="capacidad">[[#{alojamiento.capacidad}]]</label>
+                                <input type="number" class="form-control" name="capacidad" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="precio_noche">[[#{alojamiento.precioNoche}]]</label>
+                                <input type="number" class="form-control" name="precioNoche" step="0.01" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ubicacion">[[#{alojamiento.ubicacion}]]</label>
+                                <input type="text" class="form-control" name="ubicacion" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="imagen">[[#{alojamiento.imagen}]]</label>
+                                <input class="form-control" type="file" name="imagenFile"
+                                       onchange="readURL(this);" >
+                                <img id="blah" src="#" alt="your image" height="200"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="activo">[[#{alojamiento.activo}]]</label>
+                                <input class="form-check-input" 
+                                    type="checkbox" 
+                                    name="activo" 
+                                    id="activo">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Fragmento para editar un alojamiento -->
+    <section th:fragment="editarAlojamiento">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <form method="POST" th:action="@{/propietario/alojamientos/guardar}" th:object="${alojamiento}" class="was-validated" enctype="multipart/form-data">
+                    <input type="hidden" name="idAlojamiento" th:field="*{idAlojamiento}" />
+                    <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}" />
+                    <input type="hidden" name="nuevaImagen" value="NO" />
+
+                    <section th:replace="~{propietario/alojamientos/fragmentos :: botonesEditar}" />
+                    
+                    <div id="details">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>Actualizar Alojamiento</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <input type="hidden" name="usuario" th:field="*{anfitrion.idUsuario}" />
+
+                                            <div class="mb-3">
+                                                <label for="nombre">Nombre</label>
+                                                <input type="text" class="form-control" id="nombre" name="nombre" th:field="*{nombre}" required>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="descripcion">Descripción</label>
+                                                <textarea class="form-control" id="descripcion" name="descripcion" th:field="*{descripcion}"></textarea>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="alojamientoTipo">Tipo de Alojamiento</label>
+                                                <input type="text" class="form-control" id="alojamientoTipo" name="alojamientoTipo" th:field="*{alojamientoTipo}">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="numHabitaciones">Número de Habitaciones</label>
+                                                <input type="number" class="form-control" id="numHabitaciones" name="numHabitaciones" th:field="*{numHabitaciones}">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="num_banos">Número de Baños</label>
+                                                <input type="number" class="form-control" id="num_banos" name="num_banos" th:field="*{numBanos}">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="capacidad">Capacidad</label>
+                                                <input type="number" class="form-control" id="capacidad" name="capacidad" th:field="*{capacidad}">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="precioNoche">Precio por Noche</label>
+                                                <input type="number" class="form-control" step="0.01" id="precioNoche" name="precioNoche" th:field="*{precioNoche}">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="ubicacion">Ubicación</label>
+                                                <input type="text" class="form-control" id="ubicacion" name="ubicacion" th:field="*{ubicacion}" required>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="calificacion">Calificación</label>
+                                                <input type="number" class="form-control" step="0.01" max="10" id="calificacion" name="calificacion" th:field="*{calificacion}">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="imagen">Imagen Principal</label>
+                                                <input class="form-control" type="file" name="imagenFile" onchange="readURL(this);" />
+                                                <img id="blah" th:src="@{${alojamiento.rutaImagen}}" alt="Imagen del Alojamiento" height="200" />
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="activo">Activo</label>
+                                                <input type="checkbox" class="form-check-input" id="activo" name="activo" th:field="*{activo}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fragmento de botones para la sección de modificación -->
+    <section th:fragment="botonesEditar">
+        <div class="container py-4 mb-4 bg-light">
+            <div class="row">
+                <div class="col-md-4 d-grid">
+                    <a th:href="@{/propietario/alojamientos}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                    </a>
+                </div>
+                <div class="col-md-4 d-grid">
+                    <a th:href="@{/propietario/alojamientos/eliminar/}+${alojamiento.idAlojamiento}" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                    </a>
+                </div>
+                <div class="col-md-4 d-grid">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

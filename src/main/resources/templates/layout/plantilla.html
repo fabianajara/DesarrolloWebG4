@@ -27,10 +27,12 @@
                                 <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/features}">Accommodations</a>
+                                <!-- voy por aqui -->
+                                <!--<a class="nav-link" th:href="@{/usuario/alojamientos}">All Our Accommodations</a>--> 
+                                <a class="nav-link" th:href="@{/propietario/alojamientos}">All MY Accommodations{P}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/pricing}">Bookings</a>
+                                <a class="nav-link" th:href="@{/usuario/alojamientos}">All Accommodations{U}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/rent}">Rent With Us</a>
@@ -59,7 +61,6 @@
                             <li class="nav-item px-2"><a class="nav-menu-link nav-link" th:href="@{/categoria/listado}">[[#{plantilla.categorias}]]</a></li>
                             <li class="nav-item px-2"><a class="nav-menu-link nav-link" th:href="@{/producto/listado}">[[#{plantilla.productos}]]</a></li>
                             <li class="nav-item px-2"><a class="nav-menu-link nav-link" th:href="@{/usuario/listado}">[[#{plantilla.usuarios}]]</a></li>
-                            <li class="nav-item px-2"><a class="nav-menu-link nav-link" th:href="@{/resena/listado}">[[#{plantilla.resena}]]</a></li>
                         </ul>
                         <div class="col-md-3">
                             <ul class="navbar-nav">                                
