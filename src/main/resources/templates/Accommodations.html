@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantilla :: head}">
+    <link rel="stylesheet" href="../../static/css/estilos.css" type="text/css"/>
+    <title>Accommodations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding-top: 20px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .card-details {
+            flex: 1;
+            margin-left: 20px;
+        }
+        .card-details h2 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #333;
+        }
+        .card-details p {
+            margin: 10px 0;
+            color: #666;
+        }
+        .stars {
+            color: #f39c12;
+        }
+        .price {
+            font-size: 1.2em;
+            color: #e74c3c;
+        }
+        .availability {
+            font-size: 0.9em;
+            color: #2ecc71;
+        }
+        .availability.unavailable {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <header th:replace="~{layout/plantilla :: header}"/>
+
+    <div class="container">
+        <h1>Accommodations</h1>
+        <p>Encuentra tu casa ideal entre nuestras opciones disponibles.</p>
+
+        <!-- Opcion 1 -->
+        <div class="card">
+            <img src="/imgs/imagenCasa1.jpg" alt="Casa 1"/>
+            <div class="card-details">
+                <h2>Casa en la playa</h2>
+                <p>Disfruta de una estancia relajante en esta hermosa casa junto a la playa.</p>
+                <div class="stars">★★★★★</div>
+                <div class="price">$120 por noche</div>
+                <div class="availability">Disponible</div>
+            </div>
+        </div>
+
+        <!-- Opcion 2 -->
+        <div class="card">
+            <img src="/imgs/imagenCasa1.jpg" alt="Casa 2"/>
+            <div class="card-details">
+                <h2>Chalet en la montaña</h2>
+                <p>Escapa al campo en este encantador chalet en la montaña.</p>
+                <div class="stars">★★★★☆</div>
+                <div class="price">$150 por noche</div>
+                <div class="availability unavailable">No disponible</div>
+            </div>
+        </div>
+
+        <!-- Opcion 3 -->
+        <div class="card">
+            <img src="/imgs/imagenCasa1.jpg" alt="Casa 3"/>
+            <div class="card-details">
+                <h2>Apartamento en el centro</h2>
+                <p>Vive la experiencia urbana en este moderno apartamento en el centro de la ciudad.</p>
+                <div class="stars">★★★☆☆</div>
+                <div class="price">$80 por noche</div>
+                <div class="availability">Disponible</div>
+            </div>
+        </div>
+
+        <!-- Opcion 4 -->
+        <div class="card">
+            <img src="/imgs/imagenCasa1.jpg" alt="Casa 4"/>
+            <div class="card-details">
+                <h2>Casa rural con piscina</h2>
+                <p>Relájate en esta casa rural con una gran piscina y amplios espacios verdes.</p>
+                <div class="stars">★★★★☆</div>
+                <div class="price">$200 por noche</div>
+                <div class="availability">Disponible</div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="~{layout/plantilla :: footer}"/>
+</body>
+</html>
