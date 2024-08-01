@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>HomeAways</title>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+                    </head>
+                    <body>
+                        <h1>Reseñas</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Usuario</th>
+                                    <th>Alojamiento</th>
+                                    <th>Calificación</th>
+                                    <th>Comentario</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="resena : ${resenas}">
+                                    <td th:text="${resena.idResena}"></td>
+                                    <td th:text="${resena.usuario.nombre}"></td>
+                                    <td th:text="${resena.alojamiento.nombre}"></td>
+                                    <td th:text="${resena.calificacion}"></td>
+                                    <td th:text="${resena.comentario}"></td>
+                                    <td th:text="${resena.fecha}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h2>Agregar Resea</h2>
+                        <form action="/resenas" method="post">
+                            <label for="idUsuario">ID Usuario:</label>
+                            <input type="number" id="idUsuario" name="idUsuario" required><br>
+
+                                    <label for="idAlojamiento">ID Alojamiento:</label>
+                                    <input type="number" id="idAlojamiento" name="idAlojamiento" required><br>
+
+                                            <label for="calificacion">Calificación:</label>
+                                            <input type="number" step="0.1" id="calificacion" name="calificacion" required><br>
+
+                                                    <label for="comentario">Comentario:</label>
+                                                    <textarea id="comentario" name="comentario" required></textarea><br>
+
+                                                        <button type="submit">Agregar Reseña</button>
+                                                        </form>
+                                                        </body>
+                                                        </html>
