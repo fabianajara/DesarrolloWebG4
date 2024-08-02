@@ -5,11 +5,12 @@
 package com.desarrollowebG4.service;
 
 import com.desarrollowebG4.domain.Resena;
+import java.util.List;
 
 public interface ResenaServicio {
     
-    public interface ResenaServicio {
+   
     List<Resena> obtenerTodasLasResenas();
-    void guardarReseña(Resena resena);
+    void guardarResena(Resena resena);
 }
-}
+

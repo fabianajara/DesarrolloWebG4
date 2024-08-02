@@ -7,6 +7,7 @@ package com.desarrollowebG4.service.impl;
 import com.desarrollowebG4.dao.ResenaDao;
 import com.desarrollowebG4.domain.Resena;
 import com.desarrollowebG4.service.ResenaServicio;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -21,7 +22,9 @@ public class ResenaServiceImpl implements ResenaServicio{
     }
 
     @Override
-    public void guardarReseña(Resena resena) {
+    public void guardarResena(Resena resena) { 
         resenaDao.save(resena);
     }
+
+    
 }

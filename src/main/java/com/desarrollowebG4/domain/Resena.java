@@ -3,24 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.desarrollowebG4.domain;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
+import jakarta.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Optional;
+import lombok.Data;
 
 @Entity
 @Table(name = "resena")
-public class Resena {
+public class Resena implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_resena")
     private Long idResena;
 
     @ManyToOne
@@ -40,5 +35,17 @@ public class Resena {
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
+
+    public void setAlojamiento(Optional<Alojamiento> buscarAlojamientoPorId) {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
+
+    public void setCalificacion(Double calificacion) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void setComentario(String comentario) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }
