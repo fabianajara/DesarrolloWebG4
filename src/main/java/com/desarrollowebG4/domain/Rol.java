@@ -16,8 +16,12 @@ public class Rol implements Serializable {
     @Column(name = "id_rol")
     private Long idRol;
 
-    private String nombre;
+    @Column(name = "nombre_rol")
+    private String nombreRol;
 
-    @Column(name = "id_usuario")
-    private Long idUsuario;
+    @ManyToOne
+    @JoinColumn(name = "id_usuario") // Es la clave foránea en la tabla Rol
+    private Usuario usuario;
+
+  
 }

@@ -12,8 +12,12 @@ import java.util.List;
 @Service
 public class FotoAlojamientoServiceImpl implements FotoAlojamientoService {
 
+    private final FotoAlojamientoDao fotoAlojamientoDao;
+
     @Autowired
-    private FotoAlojamientoDao fotoAlojamientoDao;
+    public FotoAlojamientoServiceImpl(FotoAlojamientoDao fotoAlojamientoDao) {
+        this.fotoAlojamientoDao = fotoAlojamientoDao;
+    }
 
     @Override
     public List<FotoAlojamiento> findFotosByAlojamiento(Alojamiento alojamiento) {

@@ -36,9 +36,13 @@ public class Alojamiento implements Serializable {
     private double calificacion;
     private String rutaImagen;
     private boolean activo;
+
+   
+ 
     
     // Fotos extra del alojamiento
     @OneToMany(mappedBy = "alojamiento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FotoAlojamiento> fotos;
 
+    
 }

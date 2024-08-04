@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantilla :: head}">
+    <title th:text="${resena.idResena == null ? 'Nueva Reseña' : 'Modificar Reseña'}"></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header th:replace="~{layout/plantilla :: header}"></header>
+    
+     <section th:fragment="listadoResenas" class="container mt-4">
+        <h1>Listado de Reseñas</h1>
+        <a href="/resenas/nuevo" class="btn btn-primary mb-3">Agregar nueva reseña</a>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Alojamiento</th>
+                    <th>Calificación</th>
+                    <th>Comentario</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="resena : ${resenas}">
+                    <td th:text="${resena.idResena}"></td>
+                    <td th:text="${resena.usuario.nombre}"></td>
+                    <td th:text="${resena.alojamiento.nombre}"></td>
+                    <td th:text="${resena.calificacion}"></td>
+                    <td th:text="${resena.comentario}"></td>
+                    <td th:text="${resena.fecha}"></td>
+                    <td>
+                        <a th:href="@{/resenas/modificar/{idResena}(idResena=${resena.idResena})}" class="btn btn-warning btn-sm">Modificar</a>
+                        <a th:href="@{/resenas/eliminar/{idResena}(idResena=${resena.idResena})}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Sección para agrehar una nueva reseña... -->
+    <section th:fragment="nuevaResena" class="py-4 mb-0" style="background-color: #d5e6f7; text-align: center;">
+    <div class="container mt-4">
+        <h1 th:text="${resena.idResena == null ? 'Nueva Reseña' : 'Modificar Reseña'}"></h1>
+
+        <form th:action="@{/resenas/guardar}" th:object="${resena}" method="post" class="was-validated">
+            <input type="hidden" th:field="*{idResena}" />
+
+            <div class="form-group">
+                <label for="idUsuario">Usuario:</label>
+                <select id="idUsuario" th:field="*{usuario.idUsuario}" class="form-control">
+                    <option th:each="usuario : ${usuarios}" th:value="${usuario.idUsuario}" th:text="${usuario.nombre}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="idAlojamiento">Alojamiento:</label>
+                <select id="idAlojamiento" th:field="*{alojamiento.idAlojamiento}" class="form-control">
+                    <option th:each="alojamiento : ${alojamientos}" th:value="${alojamiento.idAlojamiento}" th:text="${alojamiento.nombre}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="calificacion">Calificación:</label>
+                <input type="number" id="calificacion" th:field="*{calificacion}" class="form-control" step="0.1" min="0" max="5" />
+            </div>
+
+            <div class="form-group">
+                <label for="comentario">Comentario:</label>
+                <textarea id="comentario" th:field="*{comentario}" class="form-control"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+ </section>
+    
+    <!-- Sección para modificar una reseña -->
+<section th:fragment="modificarResena" class="py-4 mb-0" style="background-color: #d5e6f7; text-align: center;">
+    <div class="container mt-4">
+        <h1>Modificar Reseña</h1>
+
+        <form th:action="@{/resenas/guardar}" th:object="${resena}" method="post" class="was-validated">
+            <input type="hidden" th:field="*{idResena}" />
+
+            <div class="form-group">
+                <label for="idUsuario">Usuario:</label>
+                <select id="idUsuario" th:field="*{usuario.idUsuario}" class="form-control">
+                    <option th:each="usuario : ${usuarios}" th:value="${usuario.idUsuario}" th:text="${usuario.nombre}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="idAlojamiento">Alojamiento:</label>
+                <select id="idAlojamiento" th:field="*{alojamiento.idAlojamiento}" class="form-control">
+                    <option th:each="alojamiento : ${alojamientos}" th:value="${alojamiento.idAlojamiento}" th:text="${alojamiento.nombre}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="calificacion">Calificación:</label>
+                <input type="number" id="calificacion" th:field="*{calificacion}" class="form-control" step="0.1" min="0" max="5" />
+            </div>
+
+            <div class="form-group">
+                <label for="comentario">Comentario:</label>
+                <textarea id="comentario" th:field="*{comentario}" class="form-control"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+    </div>
+</section>
+    
+
+    
+    
+    <footer th:replace="~{layout/plantilla :: footer}"></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

@@ -6,11 +6,18 @@ package com.desarrollowebG4.service;
 
 import com.desarrollowebG4.domain.Resena;
 import java.util.List;
+import java.util.Optional;
 
 public interface ResenaServicio {
     
    
     List<Resena> obtenerTodasLasResenas();
-    void guardarResena(Resena resena);
+   
+
+    public void guardarResena(Resena resena);
+
+    public Optional<Resena> buscarResenaPorId(Long idResena);
+
+    public void eliminarResena(Long idResena);
 }
 

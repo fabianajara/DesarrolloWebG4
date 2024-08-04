@@ -19,11 +19,11 @@ public class Resena implements Serializable {
     private Long idResena;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_alojamiento", nullable = false)
+    @JoinColumn(name = "id_alojamiento")
     private Alojamiento alojamiento;
 
     @Column(nullable = false)
@@ -36,16 +36,57 @@ public class Resena implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fecha;
 
-    public void setAlojamiento(Optional<Alojamiento> buscarAlojamientoPorId) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    
+    // Getters y setters
+
+    public Long getIdResena() {
+        return idResena;
+    }
+
+    public void setIdResena(Long idResena) {
+        this.idResena = idResena;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Alojamiento getAlojamiento() {
+        return alojamiento;
+    }
+
+    public void setAlojamiento(Alojamiento alojamiento) {
+        this.alojamiento = alojamiento;
+    }
+
+    public Double getCalificacion() {
+        return calificacion;
     }
 
     public void setCalificacion(Double calificacion) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.calificacion = calificacion;
+    }
+
+    public String getComentario() {
+        return comentario;
     }
 
     public void setComentario(String comentario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.comentario = comentario;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
 }
+
+

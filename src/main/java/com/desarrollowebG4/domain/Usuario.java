@@ -17,19 +17,25 @@ public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_Usuario")
-    private Long idUsuario;
-    
-    
+    @Column(name = "id_usuario")
+    private Long id;
+
+    @Column(name = "nombre")
     private String username;
-    private String password;
-    private String nombre;
-    private String apellidos;
+
+    @Column(name = "email")
     private String correo;
+
+    @Column(name = "contrasena")
+    private String password;
+
+    @Column(name = "telefono")
     private String telefono;
+
+    @Column(name = "usuario_imagen")
     private String rutaImagen;
 
-    @OneToMany
-    @JoinColumn(name = "id_usuario", updatable = false)
+    @OneToMany(mappedBy = "usuario") // La propiedad debe coincidir con la propiedad en la entidad Rol
     private List<Rol> roles;
 }
+

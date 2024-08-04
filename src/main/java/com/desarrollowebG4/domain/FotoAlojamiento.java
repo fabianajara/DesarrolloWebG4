@@ -21,4 +21,33 @@ public class FotoAlojamiento implements Serializable {
     private Alojamiento alojamiento;
 
     private String rutaImagen;
+    
+    // Getters and setters
+
+    public Long getIdFoto() {
+        return idFoto;
+    }
+
+    public void setIdFoto(Long idFoto) {
+        this.idFoto = idFoto;
+    }
+
+    public Alojamiento getAlojamiento() {
+        return alojamiento;
+    }
+
+    public void setAlojamiento(Alojamiento alojamiento) {
+        this.alojamiento = alojamiento;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
+    }
 }
+    
+    
+

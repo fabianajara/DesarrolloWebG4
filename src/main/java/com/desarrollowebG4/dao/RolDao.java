@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RolDao extends JpaRepository<Rol,Long>{
     
-    void deleteByIdUsuario(Long idUsuario);
+  // Método para eliminar roles por ID de usuario public void deleteByUsuarioId(Long idRol);
+  
+    public void deleteByUsuario_Id(Long idUsuario);
     
 }

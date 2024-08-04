@@ -140,7 +140,9 @@ INSERT INTO homeaway.Reserva (id_usuario, id_alojamiento, fecha_entrada, fecha_s
 VALUES (3, 3, '2024-08-20', '2024-08-22', 6, 1200.00, 'confirmada');
 
 
+select * from alojamiento;
+
 drop schema homeaway;
 drop user AdminHomeAway;
 drop table propiedad;
-select * from alojamiento;
+drop table alojamiento;
