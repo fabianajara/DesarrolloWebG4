@@ -15,7 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/resenas")
+@RequestMapping("/usuario/resenas")
 public class ResenaAlojamientoController {
 
     private static final Logger log = LoggerFactory.getLogger(ResenaAlojamientoController.class);
@@ -34,7 +34,7 @@ public class ResenaAlojamientoController {
         var resenas = resenaServicio.obtenerTodasLasResenas();
         model.addAttribute("resenas", resenas);
         model.addAttribute("totalResenas", resenas.size());
-        return "resenas/listar";
+        return "/usuario/resenas/listar";
     }
 
     @GetMapping("/nuevo")
@@ -45,7 +45,7 @@ public class ResenaAlojamientoController {
         if (error != null) {
             model.addAttribute("error", "Error: " + error);
         }
-        return "resenas/modifica";
+        return "/usuario/resenas/modifica";
     }
 
     @PostMapping("/guardar")
@@ -63,13 +63,13 @@ public class ResenaAlojamientoController {
             log.error("Usuario o alojamiento no encontrados: usuarioId={}, alojamientoId={}", idUsuario, idAlojamiento);
         }
 
-        return "redirect:/resenas";
+        return "redirect:/usuario/resenas";
     }
 
     @GetMapping("/eliminar/{idResena}")
     public String eliminarResena(@PathVariable("idResena") Long idResena) {
         resenaServicio.eliminarResena(idResena);
-        return "redirect:/resenas";
+        return "redirect:/usuario/resenas";
     }
 
     @GetMapping("/modificar/{idResena}")
@@ -81,10 +81,10 @@ public class ResenaAlojamientoController {
             model.addAttribute("resena", resena);
             model.addAttribute("alojamientos", alojamientoService.getAlojamientos(true));
             model.addAttribute("usuarios", usuarioServicio.obtenerTodosLosUsuarios());
-            return "resenas/modifica";
+            return "usuario/resenas/modifica";
         } else {
             log.error("Reseña no encontrada: idResena={}", idResena);
-            return "redirect:/resenas";
+            return "redirect:/usuario/resenas";
         }
     }
 }

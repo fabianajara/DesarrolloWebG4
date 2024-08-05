@@ -1,7 +1,6 @@
 package com.desarrollowebG4.controller;
 
 import com.desarrollowebG4.domain.Alojamiento;
-import com.desarrollowebG4.domain.Usuario;
 import com.desarrollowebG4.service.AlojamientoService;
 import com.desarrollowebG4.service.impl.FirebaseStorageServiceImpl;
 import lombok.extern.slf4j.Slf4j;
