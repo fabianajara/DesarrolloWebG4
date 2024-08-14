@@ -13,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Slf4j
@@ -26,6 +28,7 @@ public class UsuarioAlojamientoController {
     @Autowired
     private FotoAlojamientoService fotoAlojamientoService;
 
+    // Método para mostrar el listado general de alojamientos
     @GetMapping("")
     public String listadoPropiedades(Model model) {
         var alojamientos = alojamientoService.getAlojamientos(true);
@@ -49,6 +52,8 @@ public class UsuarioAlojamientoController {
 //            return "usuario/alojamientos";
 //        }
 //    }
+    
+    // Método para ver detalles de un alojamiento específico
     @GetMapping("/{id}")
     public String verAlojamiento(@PathVariable("id") Long id, Model model) {
         Optional<Alojamiento> optionalAlojamiento = alojamientoService.buscarAlojamientoPorId(id);

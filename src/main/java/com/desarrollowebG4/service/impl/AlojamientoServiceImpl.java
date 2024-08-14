@@ -16,6 +16,7 @@ public class AlojamientoServiceImpl implements AlojamientoService {
     @Autowired
     private AlojamientoDao alojamientoDao;
 
+    // Parte para el CRUD
     @Override
     @Transactional(readOnly = true)
     public List<Alojamiento> getAlojamientos(boolean activos) {
@@ -47,5 +48,12 @@ public class AlojamientoServiceImpl implements AlojamientoService {
     @Override
     public Optional<Alojamiento> buscarAlojamientoPorId(Long id) {
         return alojamientoDao.findById(id);
+    }
+    
+    // Parte par a los filtros de busqueda
+    @Override
+    public List<Alojamiento> filtrarAlojamientos(Double precioInf, Double precioSup, String ubicacion, Integer capacidad) {
+        // Llamamos al método del repositorio que realiza la consulta con filtros opcionales
+        return alojamientoDao.filtrarAlojamientos(precioInf, precioSup, ubicacion, capacidad);
     }
 }

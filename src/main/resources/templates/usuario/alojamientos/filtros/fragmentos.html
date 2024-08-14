@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>HomeAways</title>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+                    </head>
+                    <body>
+
+                        <!-- Sección que muestra los alojamientos que cumplen con los filtros -->
+                        <section th:fragment="listadoAlojamientosFiltrados" class="light" style="background: #d5e6f7; padding-bottom: 2rem;">
+                            <div class="container py-2">
+                                <!-- Caja para ingresar filtros de Búsqueda -->
+                                <div class="carousel-caption-static" style="position: relative;
+                                     width: 100%;
+                                     margin-bottom: 20px;
+                                     margin-top: 20px;
+                                     text-align: center;
+                                     color: white;
+                                     background-color: #6c757d;
+                                     padding: 20px;
+                                     border-radius: 10px;">
+                                    <h3>Busca tu Alojamiento Ideal</h3>
+
+                                    <!-- Caja de búsqueda simplificada -->
+                                    <form th:action="@{/usuario/alojamientos/filtros/filtrar}" method="POST" class="filtros-rapidos">
+                                        <div class="form-row" style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
+                                            <div class="form-group col-md-2" style="margin: 0 5px; text-align: center;">
+                                                <label for="ubicacion" style="display: block; text-align: center;">Ubicación:</label>
+                                                <input type="text" name="ubicacion" id="ubicacion" class="form-control" placeholder="Ciudad, región...">
+                                            </div>
+                                            <div class="form-group col-md-2" style="margin: 0 5px; text-align: center;">
+                                                <label for="precioInf" style="display: block; text-align: center;">Precio mín:</label>
+                                                <input type="number" name="precioInf" id="precioInf" class="form-control" placeholder="$0">
+                                            </div>
+                                            <div class="form-group col-md-2" style="margin: 0 5px; text-align: center;">
+                                                <label for="precioSup" style="display: block; text-align: center;">Precio máx:</label>
+                                                <input type="number" name="precioSup" id="precioSup" class="form-control" placeholder="$500">
+                                            </div>
+                                            <div class="form-group col-md-2" style="margin: 0 5px; text-align: center;">
+                                                <label for="capacidad" style="display: block; text-align: center;">Capacidad</label>
+                                                <input type="number" name="capacidad" id="capacidad" class="form-control" placeholder="Cant Personas">
+                                            </div>
+                                            <div class="form-group col-md-2" style="margin: 0 5px; text-align: center;">
+                                                <button type="submit" class="btn btn-primary mt-4">Buscar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                                <!-- Título de la sección -->
+                                <div class="h1 text-center text-dark" id="pageHeaderTitle" style="font-size: 2.5rem; margin: 2rem 0;">
+                                    Listado de Alojamientos Filtrados
+                                </div>
+
+                                <!-- Cards que muestran los alojamientos -->
+                                <div class="row" style="display: flex; align-items: stretch;">
+                                    <div class="col-md-4" th:each="alojamiento : ${alojamientos}">
+                                        <div class="card shadow mb-4">
+                                            <img th:src="@{${alojamiento.rutaImagen}}" class="card-img-top" alt="Imagen del Alojamiento" style="width: 100%; height: 200px; object-fit: cover;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title" th:text="${alojamiento.nombre}" style="font-weight: bold;text-transform: capitalize;">Nombre del Alojamiento</h5>
+
+                                                    <div style="display: flex; align-items: center; margin-top: 10px; margin-bottom: 10px;">
+                                                        <img style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" th:src="@{${alojamiento.anfitrion.rutaImagen}}" alt="Foto del Anfitrión" />
+                                                        <div style="margin-left: 15px;">
+                                                            <span style="font-weight: bold;">Anfitrión:</span>
+                                                            <span th:text="${alojamiento.anfitrion.nombre}">Nombre del Anfitrión</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <p class="card-text" th:text="${alojamiento.descripcion}">Descripción del Alojamiento</p>
+                                                    <p class="card-text">Precio por Noche: <span th:text="${alojamiento.precioNoche}">Precio</span></p>
+
+                                                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                                        <img src="/imgs/Location-icon.png" alt="Ícono de Ubicación" style="width: 20px; height: 20px; margin-right: 5px;">
+                                                            <p class="card-text" style="margin: 0;">Ubicación: <span th:text="${alojamiento.ubicacion}">Ubicación</span></p>
+                                                    </div>
+
+                                                    <a th:href="@{/usuario/alojamientos/{id}(id=${alojamiento.idAlojamiento})}" class="btn btn-primary">Ver Detalle</a>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+
+                        <section th:replace="~{usuario/alojamientos/detalle :: detalleAlojamiento}"></section>
+                        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+                    </body>
+                    </html>
