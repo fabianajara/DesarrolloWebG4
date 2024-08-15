@@ -33,17 +33,6 @@ public class FiltrosBusquedaController {
         return "usuario/alojamientos/filtros/listado";
     }
 
-    // Método para filtrar alojamientos desde el index o desde el listado
-//    @PostMapping("/filtrar")
-//    public String filtrarAlojamientos(@RequestParam(value = "precioInf", required = false) Double precioInf,
-//            @RequestParam(value = "precioSup", required = false) Double precioSup,
-//            @RequestParam(value = "ubicacion", required = false) String ubicacion,
-//            @RequestParam(value = "capacidad", required = false) Integer capacidad,
-//            Model model) {
-//        var alojamientos = alojamientoService.filtrarAlojamientos(precioInf, precioSup, ubicacion, capacidad);
-//        model.addAttribute("alojamientos", alojamientos);
-//        return "usuario/alojamientos/filtros/listado";
-//    }
     @PostMapping("/filtrar")
     public String filtrarAlojamientos(@RequestParam(value = "precioInf", required = false) Double precioInf,
             @RequestParam(value = "precioSup", required = false) Double precioSup,

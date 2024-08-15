@@ -24,7 +24,7 @@ public class UsuarioAlojamientoController {
 
     @Autowired
     private AlojamientoService alojamientoService;
-    
+
     @Autowired
     private FotoAlojamientoService fotoAlojamientoService;
 
@@ -52,8 +52,23 @@ public class UsuarioAlojamientoController {
 //            return "usuario/alojamientos";
 //        }
 //    }
-    
     // Método para ver detalles de un alojamiento específico
+//    @GetMapping("/{id}")
+//    public String verAlojamiento(@PathVariable("id") Long id, Model model) {
+//        Optional<Alojamiento> optionalAlojamiento = alojamientoService.buscarAlojamientoPorId(id);
+//        if (optionalAlojamiento.isPresent()) {
+//            Alojamiento alojamiento = optionalAlojamiento.get();
+//            Usuario anfitrion = alojamiento.getAnfitrion();
+//            List<FotoAlojamiento> fotos = fotoAlojamientoService.findFotosByAlojamiento(alojamiento);
+//            model.addAttribute("alojamiento", alojamiento);
+//            model.addAttribute("anfitrion", anfitrion);
+//            model.addAttribute("fotos", fotos);
+//            return "usuario/alojamientos/detalle";
+//        } else {
+//            model.addAttribute("error", "Alojamiento no encontrado");
+//            return "usuario/alojamientos";
+//        }
+//    }
     @GetMapping("/{id}")
     public String verAlojamiento(@PathVariable("id") Long id, Model model) {
         Optional<Alojamiento> optionalAlojamiento = alojamientoService.buscarAlojamientoPorId(id);
