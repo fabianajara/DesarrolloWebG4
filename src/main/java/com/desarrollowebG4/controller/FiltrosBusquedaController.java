@@ -34,14 +34,41 @@ public class FiltrosBusquedaController {
     }
 
     // Método para filtrar alojamientos desde el index o desde el listado
+//    @PostMapping("/filtrar")
+//    public String filtrarAlojamientos(@RequestParam(value = "precioInf", required = false) Double precioInf,
+//            @RequestParam(value = "precioSup", required = false) Double precioSup,
+//            @RequestParam(value = "ubicacion", required = false) String ubicacion,
+//            @RequestParam(value = "capacidad", required = false) Integer capacidad,
+//            Model model) {
+//        var alojamientos = alojamientoService.filtrarAlojamientos(precioInf, precioSup, ubicacion, capacidad);
+//        model.addAttribute("alojamientos", alojamientos);
+//        return "usuario/alojamientos/filtros/listado";
+//    }
     @PostMapping("/filtrar")
     public String filtrarAlojamientos(@RequestParam(value = "precioInf", required = false) Double precioInf,
             @RequestParam(value = "precioSup", required = false) Double precioSup,
             @RequestParam(value = "ubicacion", required = false) String ubicacion,
             @RequestParam(value = "capacidad", required = false) Integer capacidad,
             Model model) {
+
+        // Validar parámetros
+        if (precioInf == null) {
+            precioInf = 0.0; // Valor mínimo
+        }
+        if (precioSup == null) {
+            precioSup = Double.MAX_VALUE; // Valor máximo
+        }
+        if (capacidad == null) {
+            capacidad = 0; // Valor mínimo
+        }
+
+        // Llamar al servicio para filtrar alojamientos
         var alojamientos = alojamientoService.filtrarAlojamientos(precioInf, precioSup, ubicacion, capacidad);
+
+        // Agregar los alojamientos filtrados al modelo
         model.addAttribute("alojamientos", alojamientos);
+
+        // Retornar la vista con los resultados
         return "usuario/alojamientos/filtros/listado";
     }
 }
