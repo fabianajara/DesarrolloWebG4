@@ -16,6 +16,9 @@ public interface AlojamientoService {
     public void save(Alojamiento alojamiento);
     
     public void delete(Alojamiento alojamiento);
+    
+    // Encontrar alojamientos por el nombre de usuario del anfitrión
+    List<Alojamiento> findByAnfitrionUsername(String username);
 
     // Parte para los filtros de búsqueda
     List<Alojamiento> filtrarAlojamientos(Double precioInf, Double precioSup, String ubicacion, Integer capacidad);

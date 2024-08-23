@@ -1,11 +1,14 @@
 package com.desarrollowebG4.controller;
 
 import com.desarrollowebG4.domain.Alojamiento;
-import com.desarrollowebG4.domain.Usuario;
 import com.desarrollowebG4.service.AlojamientoService;
 import com.desarrollowebG4.service.impl.FirebaseStorageServiceImpl;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +25,18 @@ public class PropietarioAlojamientoController {
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;
 
+    private String getAuthenticatedUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal() instanceof UserDetails) {
+            return ((UserDetails) authentication.getPrincipal()).getUsername();
+        }
+        return authentication.getPrincipal().toString();
+    }
+
     @GetMapping("")
     public String listadoPropiedades(Model model) {
-        var alojamientos = alojamientoService.getAlojamientos(false);
+        String username = getAuthenticatedUsername();
+        List<Alojamiento> alojamientos = alojamientoService.findByAnfitrionUsername(username);
         model.addAttribute("alojamientos", alojamientos);
         model.addAttribute("totalAlojamientos", alojamientos.size());
         return "propietario/alojamientos/listado";

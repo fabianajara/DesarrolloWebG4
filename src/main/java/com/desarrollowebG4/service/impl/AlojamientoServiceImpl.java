@@ -26,6 +26,11 @@ public class AlojamientoServiceImpl implements AlojamientoService {
         }
         return lista;
     }
+    
+    @Override
+    public List<Alojamiento> findByAnfitrionUsername(String username) {
+        return alojamientoDao.findByAnfitrionUsername(username);
+    }
 
     @Override
     @Transactional(readOnly = true)

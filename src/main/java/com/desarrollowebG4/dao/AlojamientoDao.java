@@ -8,6 +8,9 @@ import org.springframework.data.repository.query.Param;
 
 public interface AlojamientoDao extends JpaRepository<Alojamiento, Long> {
 
+    // Para mostrar alojamientos del propietario con el que se logea
+    List<Alojamiento> findByAnfitrionUsername(String username);
+
     // Para la parte de filtros de busqueda
     @Query("SELECT a FROM Alojamiento a WHERE "
             + "(:precioInf IS NULL OR a.precioNoche >= :precioInf) AND "
