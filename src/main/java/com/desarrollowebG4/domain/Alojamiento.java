@@ -41,4 +41,6 @@ public class Alojamiento implements Serializable {
     @OneToMany(mappedBy = "alojamiento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FotoAlojamiento> fotos;
 
+    // Getters y Setters
+    
 }

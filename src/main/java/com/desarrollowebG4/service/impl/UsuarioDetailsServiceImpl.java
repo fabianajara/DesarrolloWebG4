@@ -47,4 +47,9 @@ public class UsuarioDetailsServiceImpl implements UsuarioDetailsService, UserDet
         //Se retorna un User (de tipo UserDetails)
         return new User(usuario.getUsername(), usuario.getPassword(), roles);
     }
+    
+    @Override
+    public Usuario findByUsername(String username) {
+        return usuarioDao.findByUsername(username);
+    }
 }

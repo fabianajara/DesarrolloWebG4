@@ -1,11 +1,14 @@
 package com.desarrollowebG4.controller;
 
 import com.desarrollowebG4.domain.Alojamiento;
+import com.desarrollowebG4.domain.Usuario;
 import com.desarrollowebG4.service.AlojamientoService;
+import com.desarrollowebG4.service.UsuarioDetailsService;
 import com.desarrollowebG4.service.impl.FirebaseStorageServiceImpl;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +24,9 @@ public class PropietarioAlojamientoController {
 
     @Autowired
     private AlojamientoService alojamientoService;
+
+    @Autowired
+    private UsuarioDetailsService usuarioDetailsService;
 
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;
@@ -48,14 +54,19 @@ public class PropietarioAlojamientoController {
     }
 
     @PostMapping("/guardar")
+    @PreAuthorize("hasRole('ANFITRION')")
     public String guardarAlojamiento(Alojamiento alojamiento,
             @RequestParam("imagenFile") MultipartFile imagenFile) {
+        String username = getAuthenticatedUsername();
+        Usuario usuario = usuarioDetailsService.findByUsername(username);
+
+        // Asigna el usuario autenticado como el anfitrión del alojamiento
+        alojamiento.setAnfitrion(usuario);
+
         if (alojamiento.getIdAlojamiento() != null) {
-            // Si el alojamiento ya existe, obtén la instancia persistente
             Alojamiento alojamientoExistente = alojamientoService.getAlojamiento(alojamiento);
 
             if (alojamientoExistente != null) {
-                // Actualiza los campos del alojamiento existente con los nuevos valores
                 alojamientoExistente.setNombre(alojamiento.getNombre());
                 alojamientoExistente.setDescripcion(alojamiento.getDescripcion());
                 alojamientoExistente.setAlojamientoTipo(alojamiento.getAlojamientoTipo());
@@ -67,9 +78,7 @@ public class PropietarioAlojamientoController {
                 alojamientoExistente.setCalificacion(alojamiento.getCalificacion());
                 alojamientoExistente.setActivo(alojamiento.isActivo());
 
-                // Gestiona las fotos
                 if (alojamiento.getFotos() != null) {
-                    // Limpiar la lista de fotos existentes y añadir las nuevas fotos
                     alojamientoExistente.getFotos().clear();
                     alojamientoExistente.getFotos().addAll(alojamiento.getFotos());
                 }
@@ -87,7 +96,7 @@ public class PropietarioAlojamientoController {
                             alojamiento.getIdAlojamiento()));
         }
         alojamientoService.save(alojamiento);
-        return "redirect:/propietario/alojamientos"; // Redirige al listado
+        return "/propietario/alojamientos/listado";
     }
 
     @GetMapping("/eliminar/{idAlojamiento}")

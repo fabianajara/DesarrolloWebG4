@@ -73,12 +73,16 @@ public class ProjectConfing implements WebMvcConfigurer {
                 .authorizeHttpRequests((request) -> request
                 .requestMatchers("/", "/index", "/errores/**",
                         "/carrito/**", "/reportes/**",
-                        "/registro/**", "/imgs/**", "/usuario/alojamientos/**","/js/**", "/webjars/**")
+                        "/registro/**", "/imgs/**", "/usuario/alojamientos/**", "/js/**", "/webjars/**")
                 .permitAll()
-                .requestMatchers("/propietario/alojamientos/**", "/propietario/alojamientos/nuevo", "/propietario/alojamientos/guardar",
-                        "/propietario/alojamientos/modificar/**", "/propietario/alojamientos/eliminar/**","/usuario/alojamientos/filtros/**")
-//                  .requestMatchers("/**")
-                .hasRole("ANFITRION") // Solo los usuarios con rol ANFITRION pueden acceder
+                .requestMatchers("/propietario/alojamientos/**",
+                        "/propietario/alojamientos/listado",
+                        "/propietario/alojamientos/nuevo",
+                        "/propietario/alojamientos/guardar",
+                        "/propietario/alojamientos/guardar/**",
+                        "/propietario/alojamientos/modificar/**",
+                        "/propietario/alojamientos/eliminar/**")
+                .hasRole("ANFITRION") // Asegúrate de que el rol sea el correcto y esté asignado a los usuarios adecuados
                 )
                 .formLogin((form) -> form
                 .loginPage("/login").permitAll())

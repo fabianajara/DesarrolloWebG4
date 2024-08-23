@@ -95,8 +95,7 @@
                                             <h5 class="modal-title">[[#{alojamiento.agregar}]]</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div> 
-                                        <form th:action="@{/propietario/alojamiento/guardar}" th:object="${alojamiento}"
-                                              method="POST" class="was-validated" enctype="multipart/form-data">
+                                        <form th:action="@{/propietario/alojamientos/guardar}" th:object="${alojamiento}" method="POST" class="was-validated" enctype="multipart/form-data">
 
                                             <input type="hidden" name="nuevaImagen" value="NO"/>
                                             <div class="modal-body">
