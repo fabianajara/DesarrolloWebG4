@@ -1,162 +1,158 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:th="http://www.thymeleaf.org" 
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">>
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/plantilla :: head}">
-        <title>HomeAways</title>
+        <title>HomeAway</title>
         <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-                    <!-- Include Bootstrap CSS -->
-                    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Include Bootstrap CSS (using only one version) -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"></header>    
 
-                        </head>
-                        <body>
-                            <header th:replace="~{layout/plantilla :: header}"></header>    
+        <!-- Sección que muestra los detalles de un alojamiento específico -->
+        <section th:fragment="detalleAlojamiento" class="light" style="background: #d5e6f7; padding-bottom: 2rem;">        
+            <div class="container" style="overflow-x: hidden;">
+                <div class="card" style="margin-top: 50px; background: #eee; padding: 3em; line-height: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"> 
+                    <div class="container-fluid">
+                        <div class="wrapper row" style="display: flex;">
 
-                            <!-- Sección que muestra los detalles de un alojamiento específico -->
-                            <section th:fragment="detalleAlojamiento" class="light" style="background: #d5e6f7; padding-bottom: 2rem;">        
-                                <div class="container" style="overflow-x: hidden;">
-                                    <div class="card" style="margin-top: 50px; background: #eee; padding: 3em; line-height: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"> 
-                                        <div class="container-fluid">
-                                            <div class="wrapper row" style="display: flex;">
+                            <!-- Botón para regresar a la página anterior -->
+                            <div class="container" style="margin-top: 5px; margin-bottom: 10px">
+                                <button type="button" class="btn btn-secondary" onclick="window.history.back();">Volver</button>
+                            </div>
 
-                                                <!-- Botón para regresar a la página anterior -->
-                                                <div class="container" style="margin-top: 5px; margin-bottom: 10px">
-                                                    <button type="button" class="btn btn-secondary" onclick="window.history.back();">Volver</button>
-                                                </div>
-
-                                                <div class="preview col-md-6" style="flex-direction: column;">
-                                                    <!-- Carrusel de imágenes -->
-                                                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                                                        <ol class="carousel-indicators">
-                                                            <!-- Indicadores del carrusel -->
-                                                            <li th:each="foto, iter : ${fotos}" 
-                                                                th:classappend="${iter.index == 0} ? 'active' : ''" 
-                                                                data-bs-target="#carouselExampleIndicators" 
-                                                                th:data-bs-slide-to="${iter.index}">
-                                                            </li>
-                                                            <li th:if="${fotos.size() == 0}" 
-                                                                class="active" 
-                                                                data-bs-target="#carouselExampleIndicators" 
-                                                                th:data-bs-slide-to="0">
-                                                            </li>
-                                                        </ol>
-                                                        <div class="carousel-inner">
-                                                            <!-- Imagen principal del alojamiento -->
-                                                            <div th:if="${fotos.size() == 0}" class="carousel-item active">
-                                                                <img th:src="@{${alojamiento.rutaImagen}}" class="d-block w-100" 
-                                                                     style="height: 400px; object-fit: cover;" alt="Imagen del Alojamiento" />
-                                                            </div>
-                                                            <!-- Imágenes adicionales -->
-                                                            <div th:each="foto, iter : ${fotos}">
-                                                                <div th:classappend="${iter.index == 0} ? 'carousel-item active' : 'carousel-item'">
-                                                                    <img th:src="@{${foto.rutaImagen}}" class="d-block w-100" 
-                                                                         style="height: 400px; object-fit: cover;" alt="Imagen adicional" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
-                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                            <span class="visually-hidden">Previous</span>
-                                                        </a>
-                                                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
-                                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                            <span class="visually-hidden">Next</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Sección de detalles del alojamiento -->
-                                                <div class="details col-md-6" style="font-family: 'Roboto', sans-serif; display: flex; flex-direction: column;">
-                                                    <h2 class="product-title" th:text="${alojamiento.nombre}" style="text-transform: capitalize; font-weight: bold; margin-top: 0; margin-bottom: 15px;">Nombre del Alojamiento</h2>
-                                                    <!-- Sección de las estrellas -->
-                                                    <div class="rating" style="margin-bottom: 15px;">
-                                                        <div class="stars">
-                                                            <span class="fa fa-star checked" th:if="${alojamiento.calificacion >= 1}" style="color: #ff9f1a;"></span>
-                                                            <span class="fa fa-star checked" th:if="${alojamiento.calificacion >= 2}" style="color: #ff9f1a;"></span>
-                                                            <span class="fa fa-star checked" th:if="${alojamiento.calificacion >= 3}" style="color: #ff9f1a;"></span>
-                                                            <span class="fa fa-star checked" th:if="${alojamiento.calificacion >= 4}" style="color: #ff9f1a;"></span>
-                                                            <span class="fa fa-star checked" th:if="${alojamiento.calificacion >= 5}" style="color: #ff9f1a;"></span>
-                                                        </div>
-                                                        <!-- CUANDO ESTÉN LAS RESEÑAS -->
-                                                        <!-- <span class="review-no" th:text="${alojamiento.numReviews} + ' reviews'" style="margin-left: 10px;">41 reviews</span>-->
-                                                    </div>
-                                                    <!-- Sección de los detalles escritos -->
-
-                                                    <!-- Sección de ubicación -->
-                                                    <div style="display: flex; align-items: center;"> 
-                                                        <img src="/imgs/Location-icon.png" alt="Ícono de Ubicación" style="width: 20px; height: 20px; margin-right: 5px;">
-                                                            <h5 class="card-text" th:text="${alojamiento.ubicacion}" style="color: #567EDC; font-weight: bold; margin: 0;">Ubicación del Alojamiento</h5>
-                                                    </div>
-
-
-                                                    <!-- Foto de perfl de anfitrion -->
-                                                    <div style="display: flex; align-items: center; margin-top: 10px; margin-bottom: 10px;">
-                                                        <img 
-                                                            style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" 
-                                                            th:src="@{${alojamiento.anfitrion.rutaImagen}}" 
-                                                            alt="Foto del Anfitrión" 
-                                                            />
-                                                        <div style="margin-left: 15px;">
-                                                            <span style="font-weight: bold;">Anfitrión:</span> 
-                                                            <span th:text="${alojamiento.anfitrion.nombre}">Nombre del Anfitrión</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Descripción del alojamiento -->
-                                                    <p style="margin-bottom: 13px;">
-                                                        "<span th:text="${alojamiento.descripcion}"></span>"
-                                                    </p>
-
-                                                    <!-- Precio por noche -->
-                                                    <p style="text-transform: capitalize; margin-bottom: 15px;">
-                                                        Precio por Noche: <span style="color: #567EDC; font-weight: bold;">$</span>
-                                                        <span th:text="${alojamiento.precioNoche}" style="color: #567EDC; font-weight: bold;">Precio</span>
-                                                    </p>
-
-                                                    <!-- Capacidad del alojamiento -->
-                                                    <p style="margin-bottom: 15px;">
-                                                        Capacidad para <strong th:text="${alojamiento.capacidad}"></strong> personas en total.
-                                                    </p>
-
-                                                    <!-- Número de habitaciones -->
-                                                    <p style="margin-bottom: 15px;">
-                                                        Número de Habitaciones: <strong th:text="${alojamiento.numHabitaciones}"></strong>
-                                                    </p>
-
-                                                    <!-- Número de baños -->
-                                                    <p style="margin-bottom: 15px;">
-                                                        Número de Baños: <strong th:text="${alojamiento.numBanos}"></strong>
-                                                    </p>
-
-                                                    <!-- Tipo de alojamiento -->
-                                                    <p style="margin-bottom: 15px;">
-                                                        Tipo de Alojamiento: <strong th:text="${alojamiento.alojamientoTipo}"></strong>
-                                                    </p>
-
-                                                    <!-- Estado del alojamiento -->
-                                                    <p style="margin-bottom: 15px;">
-                                                        Estado: <strong th:text="${alojamiento.activo ? 'Activo' : 'Inactivo'}"></strong>
-                                                    </p>
-
-                                                    <!-- Botón para hacer una reserva -->
-                                                    <div class="action">
-                                                        <button type="button" class="btn btn-outline-primary btn-lg">Reservar</button>
-                                                    </div>
-
-                                                </div>
+                            <div class="preview col-md-6" style="flex-direction: column;">
+                                <!-- Carrusel de imágenes -->
+                                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        <!-- Indicadores del carrusel -->
+                                        <li th:each="foto, iter : ${fotos}" 
+                                            th:classappend="${iter.index == 0} ? 'active' : ''" 
+                                            data-bs-target="#carouselExampleIndicators" 
+                                            th:data-bs-slide-to="${iter.index}">
+                                        </li>
+                                        <li th:if="${fotos.size() == 0}" 
+                                            class="active" 
+                                            data-bs-target="#carouselExampleIndicators" 
+                                            th:data-bs-slide-to="0">
+                                        </li>
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        <!-- Imagen principal del alojamiento -->
+                                        <div th:if="${fotos.size() == 0}" class="carousel-item active">
+                                            <img th:src="@{${alojamiento.rutaImagen}}" class="d-block w-100" 
+                                                 style="height: 400px; object-fit: cover;" alt="Imagen del Alojamiento" />
+                                        </div>
+                                        <!-- Imágenes adicionales -->
+                                        <div th:each="foto, iter : ${fotos}">
+                                            <div th:classappend="${iter.index == 0} ? 'carousel-item active' : 'carousel-item'">
+                                                <img th:src="@{${foto.rutaImagen}}" class="d-block w-100" 
+                                                     style="height: 400px; object-fit: cover;" alt="Imagen adicional" />
                                             </div>
                                         </div>
                                     </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </a>
                                 </div>
-                            </section>
+                            </div>
 
-                            <footer th:replace="~{layout/plantilla :: footer}"></footer>
+                            <!-- Sección de detalles del alojamiento -->
+                            <div class="details col-md-6" style="font-family: 'Roboto', sans-serif; display: flex; flex-direction: column;">
+                                <h2 class="product-title" th:text="${alojamiento.nombre}" style="text-transform: capitalize; font-weight: bold; margin-top: 0; margin-bottom: 15px;">Nombre del Alojamiento</h2>
+                                <!-- Sección de las estrellas -->
+                                <div class="rating" style="margin-bottom: 15px;">
+                                    <div class="stars">
+                                        <span class="fa fa-star checked" th:if="${alojamiento.calificacion >= 1}" style="color: #ff9f1a;"></span>
+                                        <span class="fa fa-star checked" th:if="${alojamiento.calificacion >= 2}" style="color: #ff9f1a;"></span>
+                                        <span class="fa fa-star checked" th:if="${alojamiento.calificacion >= 3}" style="color: #ff9f1a;"></span>
+                                        <span class="fa fa-star checked" th:if="${alojamiento.calificacion >= 4}" style="color: #ff9f1a;"></span>
+                                        <span class="fa fa-star checked" th:if="${alojamiento.calificacion >= 5}" style="color: #ff9f1a;"></span>
+                                    </div>
+                                    <!-- CUANDO ESTÉN LAS RESEÑAS -->
+                                    <!-- <span class="review-no" th:text="${alojamiento.numReviews} + ' reviews'" style="margin-left: 10px;">41 reviews</span>-->
+                                </div>
+                                <!-- Sección de los detalles escritos -->
 
-                            <!-- Include Bootstrap Bundle JS (with Popper) -->
-                            <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-                        </body>
-                        </html>
+                                <!-- Sección de ubicación -->
+                                <div style="display: flex; align-items: center;"> 
+                                    <img src="/imgs/Location-icon.png" alt="Ícono de Ubicación" style="width: 20px; height: 20px; margin-right: 5px;">
+                                    <h5 class="card-text" th:text="${alojamiento.ubicacion}" style="color: #567EDC; font-weight: bold; margin: 0;">Ubicación del Alojamiento</h5>
+                                </div>
+
+                                <!-- Foto de perfil de anfitrión -->
+                                <div style="display: flex; align-items: center; margin-top: 10px; margin-bottom: 10px;">
+                                    <img 
+                                        style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" 
+                                        th:src="@{${alojamiento.anfitrion.rutaImagen}}" 
+                                        alt="Foto del Anfitrión" 
+                                    />
+                                    <div style="margin-left: 15px;">
+                                        <span style="font-weight: bold;">Anfitrión:</span> 
+                                        <span th:text="${alojamiento.anfitrion.nombre}">Nombre del Anfitrión</span>
+                                    </div>
+                                </div>
+
+                                <!-- Descripción del alojamiento -->
+                                <p style="margin-bottom: 13px;">
+                                    "<span th:text="${alojamiento.descripcion}"></span>"
+                                </p>
+
+                                <!-- Precio por noche -->
+                                <p style="text-transform: capitalize; margin-bottom: 15px;">
+                                    Precio por Noche: <span style="color: #567EDC; font-weight: bold;">$</span>
+                                    <span th:text="${alojamiento.precioNoche}" style="color: #567EDC; font-weight: bold;">Precio</span>
+                                </p>
+
+                                <!-- Capacidad del alojamiento -->
+                                <p style="margin-bottom: 15px;">
+                                    Capacidad para <strong th:text="${alojamiento.capacidad}"></strong> personas en total.
+                                </p>
+
+                                <!-- Número de habitaciones -->
+                                <p style="margin-bottom: 15px;">
+                                    Número de Habitaciones: <strong th:text="${alojamiento.numHabitaciones}"></strong>
+                                </p>
+
+                                <!-- Número de baños -->
+                                <p style="margin-bottom: 15px;">
+                                    Número de Baños: <strong th:text="${alojamiento.numBanos}"></strong>
+                                </p>
+
+                                <!-- Tipo de alojamiento -->
+                                <p style="margin-bottom: 15px;">
+                                    Tipo de Alojamiento: <strong th:text="${alojamiento.alojamientoTipo}"></strong>
+                                </p>
+
+                                <!-- Estado del alojamiento -->
+                                <p style="margin-bottom: 15px;">
+                                    Estado: <strong th:text="${alojamiento.activo ? 'Activo' : 'Inactivo'}"></strong>
+                                </p>
+
+                                <!-- Botón para hacer una reserva -->
+                                <div class="action">
+                                    <button type="button" class="btn btn-outline-primary btn-lg">Reservar</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+
+        <!-- Include Bootstrap Bundle JS (with Popper) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHBcwhjy3GtpQoVv5iQHid+S5k1BdZfSzJ8zJ3aMBVROgWCRYg7W1" crossorigin="anonymous"></script>
+    </body>
+</html>

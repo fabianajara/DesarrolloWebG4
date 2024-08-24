@@ -1,53 +1,66 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://wwww.thymeleaf.org"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/plantilla :: head}">
         <title>HomeAway</title>
         <meta charset="UTF-8"/>
     </head>
-    <body>
+    <body style="display: flex; flex-direction: column; min-height: 100vh;">
         <header th:replace="~{layout/plantilla :: header}"/>
-        <div class="container my-5">
-            <div class="row align-items-center"> 
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header bg-success"><h2>[[#{login.login}]]</h2></div>
-                        <div class="card-body">
-                            <form method="POST" th:action="@{/login}">
-                                <div class="form-group row my-3">
-                                    <label class="col-md-5 my-auto" for="username"><i class="fas fa-user-lock"></i>[[#{login.username}]]:</label>
-                                    <div class="col-md-7 my-auto">
-                                        <input class="form-control" type="text" name="username" id="username"/>
-                                    </div>
+
+        <section class="vh-100 gradient-custom" 
+                 style="position: relative; background-image: url('/imgs/imagenCasa1.jpg'); 
+                        background-size: cover; background-position: center; 
+                        background-repeat: no-repeat; flex: 1; display: flex; 
+                        align-items: center; justify-content: center;">
+            <div style="content: ''; position: absolute; top: 0; left: 0; width: 100%; 
+                        height: 100%; background: rgba(0, 0, 0, 0.3); z-index: 1;"></div>
+
+            <div class="container py-5" style="z-index: 2;">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                            <div class="card-body p-5 text-center">
+
+                                <div class="mb-md-5 mt-md-4 pb-5">
+
+                                    <h2 class="fw-bold mb-2">Iniciar Sesion</h2>
+                                    <p class="text-white-50 mb-5">Ingrese su usuario y contraseña</p>
+
+                                    <form method="POST" th:action="@{/login}">
+                                        <div data-mdb-input-init class="form-outline form-white mb-4">
+                                            <input class="form-control form-control-lg" type="text" name="username" id="username" placeholder="Email" required/>
+                                            <label class="form-label" for="username"></label>
+                                        </div>
+
+                                        <div data-mdb-input-init class="form-outline form-white mb-4">
+                                            <input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="Password" required/>
+                                            <label class="form-label" for="password"></label>
+                                        </div>
+
+                                        <p class="small mb-5 pb-lg-2">
+                                            Olvidaste tu contraseña? 
+                                            <a class="text-white-50" th:href="@{/registro/recordar}">[[#{accion.recordar}]]</a>
+                                        </p>
+
+                                        <button class="btn btn-outline-light btn-lg px-5" type="submit">Iniciar Sesion</button>
+                                    </form>
                                 </div>
-                                <div class="form-group row my-3">
-                                    <label class="col-md-5 my-auto" for="password"><i class="fas fa-key"></i>[[#{login.password}]]</label>
-                                    <div class="col-md-7 my-auto">
-                                        <input class="form-control" type="password" name="password" id="password"/>
-                                    </div>
+                                <div>
+                                    <p class="mb-0">Aun no tienes una cuenta? <a href="@{/registro/nuevo}" class="text-white-50 fw-bold">[[#{accion.registrar}]]</a></p>
                                 </div>
-                                <div class="card-footer col text-center">
-                                    <button class="btn btn-primary">
-                                        <a th:href="@{/registro/nuevo}" class="btn"><i class="fas fa-user-plus"></i> [[#{accion.registrar}]]</a>
-                                    </button>
-                                    <button class="btn btn-info">                                        
-                                        <a th:href="@{/registro/recordar}" class="btn"><i class="fas fa-envelope"></i> [[#{accion.recordar}]]</a>
-                                    </button>
-                                    <button class="btn btn-success" type="submit">
-                                        <span class="btn"><i class="fas fa-sign-in-alt"></i>[[#{login.login}]]</span>
-                                    </button>
-                                </div>
-                            </form>
+
+                            </div>
+                        </div>
+                        <div th:if="${param.error != null}" class="mt-3">
+                            <h3 class="text-center text-white">[[#{error.login}]]</h3>
                         </div>
                     </div>
-                    <div th:if="${param.error != null}">
-                        <h3>[[#{error.login}]]</h3>
-                    </div>
                 </div>
-            </div>           
-        </div>
+            </div>
+        </section>
+
         <footer th:replace="~{layout/plantilla :: footer}"/>
     </body>
 </html>

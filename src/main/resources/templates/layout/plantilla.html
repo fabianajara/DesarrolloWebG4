@@ -26,7 +26,7 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
                             </li>
-                            
+
                             <li class="nav-item" sec:authorize='hasRole("ROLE_ANFITRION")'>
                                 <a class="nav-link" th:href="@{/propietario/alojamientos}">All My Accommodations</a>
                             </li>
@@ -34,25 +34,32 @@
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/usuario/alojamientos}">All Accommodations</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/rent}">Rent With Us</a>
+                        </ul>
+
+                        <!-- Logout con nombre e imagen -->
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item d-flex align-items-center" sec:authorize="isAuthenticated()">
+                                <img th:src="@{${session.usuarioImagen}}" 
+                                     alt="Foto del Usuario" 
+                                     style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;" 
+                                     class="avatar me-2">
+                                    <span sec:authentication="name" class="nav-link"></span>
+                                    <form method="post" th:action="@{/logout}">
+                                        <button class="btn btn-dark">
+                                            <i class="fas fa-sign-out-alt"></i>
+                                        </button>
+                                    </form>
                             </li>
                         </ul>
-                        <div class="ms-auto">
-                            <!-- esto aparece no estoy autenticado -->
-                            <div sec:authorize="!isAuthenticated()">
-                                <a class="btn btn-outline-secondary" th:href="@{/login}" role="button">Log In</a>
-                            </div>
-                            <!-- esto aparece si estoy autenticado -->
-                            <div sec:authorize="isAuthenticated()" class="d-flex align-items-center">
-                                <img th:src="@{${session.usuarioImagen}}" alt="Foto del Usuario" class="rounded-circle" width="40" height="40">
-                                    <span class="ms-2 text-white" sec:authentication="name"></span>
-                                    <form method="post" th:action="@{/logout}" class="ms-2">
-                                        <button class="btn btn-outline-secondary" type="submit">Log Out</button>
-                                    </form>
-                            </div>
-                        </div>
                     </div>
+
+                    <!-- Esto aparece si no estoy autenticado -->
+                    <div sec:authorize="!isAuthenticated()">
+                        <a class="btn btn-outline-dark" th:href="@{/login}" role="button">Log In</a>
+                    </div>
+                </div>
+
+                </div>
                 </div>
             </nav>
         </header>
@@ -60,15 +67,9 @@
         <footer th:fragment="footer" class="bg-body-tertiary text-center" style="background-color: #212529; padding: 1rem 0;">
             <div class="container px-3 py-2">
                 <section class="mb-2 w-50 mx-auto">
-                    <a data-mdb-ripple-init class="btn text-white btn-floating mx-1" style="background-color: #3b5998;" href="https://www.facebook.com/yourprofile" role="button">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a data-mdb-ripple-init class="btn text-white btn-floating mx-1" style="background-color: #55acee;" href="https://twitter.com/yourprofile" role="button">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a data-mdb-ripple-init class="btn text-white btn-floating mx-1" style="background-color: #ac2bac;" href="https://www.instagram.com/yourprofile" role="button">
-                        <i class="fab fa-instagram"></i>
-                    </a>
+                    <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
+                    <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
                 </section>
             </div>
             <div class="text-center py-2" style="background-color: #212529; color: #93928e">
