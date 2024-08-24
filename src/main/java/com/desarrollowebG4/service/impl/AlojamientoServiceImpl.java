@@ -48,4 +48,11 @@ public class AlojamientoServiceImpl implements AlojamientoService {
     public Optional<Alojamiento> buscarAlojamientoPorId(Long id) {
         return alojamientoDao.findById(id);
     }
+
+    @Override
+    public Object obtenerTodosLosAlojamientos() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+   
 }

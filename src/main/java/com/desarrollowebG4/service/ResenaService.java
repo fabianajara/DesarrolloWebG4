@@ -8,7 +8,7 @@ import com.desarrollowebG4.domain.Resena;
 import java.util.List;
 import java.util.Optional;
 
-public interface ResenaServicio {
+public interface ResenaService {
     
    
     List<Resena> obtenerTodasLasResenas();

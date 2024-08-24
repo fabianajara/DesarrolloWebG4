@@ -7,36 +7,10 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h2 th:text="${#strings.equals(resena.idResena, null) ? 'Agregar Reseña' : 'Modificar Reseña'}" class="mt-4"></h2>
-        <form th:action="@{/resenas/guardar}" th:object="${resena}" method="POST" class="was-validated">
-            <div class="mb-3">
-                <label for="calificacion">Calificación</label>
-                <input type="number" class="form-control" id="calificacion" name="calificacion" th:field="*{calificacion}" step="0.1" min="0" max="5" required>
-            </div>
-            <div class="mb-3">
-                <label for="comentario">Comentario</label>
-                <textarea class="form-control" id="comentario" name="comentario" th:field="*{comentario}" required></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="fecha">Fecha</label>
-                <input type="date" class="form-control" id="fecha" name="fecha" th:field="*{fecha}" required>
-            </div>
-            <div class="mb-3">
-                <label for="idUsuario">Usuario</label>
-                <select class="form-control" id="idUsuario" name="idUsuario" th:field="*{usuario.idUsuario}" required>
-                    <option th:each="usuario : ${usuarios}" th:value="${usuario.idUsuario}" th:text="${usuario.nombre}"></option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="idAlojamiento">Alojamiento</label>
-                <select class="form-control" id="idAlojamiento" name="idAlojamiento" th:field="*{alojamiento.idAlojamiento}" required>
-                    <option th:each="alojamiento : ${alojamientos}" th:value="${alojamiento.idAlojamiento}" th:text="${alojamiento.nombre}"></option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <a href="/resenas" class="btn btn-secondary">Cancelar</a>
-        </form>
-    </div>
+    <header th:replace="~{layout/plantilla :: header}"/>
+
+    <section th:replace="~{usuario/resena/fragmento :: modificarResena}"/>
+
+    <footer th:replace="~{layout/plantilla :: footer}"/>
 </body>
 </html>

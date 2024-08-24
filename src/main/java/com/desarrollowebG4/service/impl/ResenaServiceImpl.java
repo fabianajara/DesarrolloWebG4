@@ -6,14 +6,14 @@ package com.desarrollowebG4.service.impl;
 
 import com.desarrollowebG4.dao.ResenaDao;
 import com.desarrollowebG4.domain.Resena;
-import com.desarrollowebG4.service.ResenaServicio;
+import com.desarrollowebG4.service.ResenaService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ResenaServiceImpl implements ResenaServicio{
+public class ResenaServiceImpl implements ResenaService{
     
    private final ResenaDao resenaDao;
 
