@@ -39,18 +39,25 @@
                         <!-- Logout con nombre e imagen -->
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item d-flex align-items-center" sec:authorize="isAuthenticated()">
-                                <img th:src="@{${session.usuarioImagen}}" 
-                                     alt="Foto del Usuario" 
-                                     style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;" 
-                                     class="avatar me-2">
-                                    <span sec:authentication="name" class="nav-link"></span>
-                                    <form method="post" th:action="@{/logout}">
-                                        <button class="btn btn-dark">
-                                            <i class="fas fa-sign-out-alt"></i>
-                                        </button>
-                                    </form>
+                                <!-- Enlace para la foto de perfil que redirige a la página de edición -->
+                                <a th:href="@{/usuario/perfil}" class="d-flex align-items-center text-decoration-none">
+                                    <img th:src="@{${session.usuarioImagen}}" 
+                                         alt="Foto del Usuario" 
+                                         style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;" 
+                                         class="avatar me-2">
+                                        <!-- Nombre del usuario como texto -->
+                                        <span class="nav-link" th:text="${#authentication.name}"></span>
+                                </a>
+                                <!-- Formulario para cerrar sesión -->
+                                <form method="post" th:action="@{/logout}" class="ms-3">
+                                    <button class="btn btn-dark">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </button>
+                                </form>
                             </li>
                         </ul>
+
+
                     </div>
 
                     <!-- Esto aparece si no estoy autenticado -->

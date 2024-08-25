@@ -61,6 +61,7 @@ public class RegistroServiceImpl implements RegistroService {
                             usuario.getIdUsuario()));
         }
         usuarioService.save(usuario, true);
+        System.out.println(codigo);
     }
 
     @Override
