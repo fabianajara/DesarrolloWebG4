@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UsuarioDao extends JpaRepository<Usuario,Long>{
     
-    // Parte para el 
+    // Parte para el log in
     Usuario findByUsername(String username);
 
     Usuario findByUsernameAndPassword(String username, String password);

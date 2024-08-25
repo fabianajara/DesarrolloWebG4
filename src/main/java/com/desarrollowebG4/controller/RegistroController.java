@@ -35,6 +35,7 @@ public class RegistroController {
     @PostMapping("/crearUsuario")
     public String crearUsuario(Model model, Usuario usuario)
             throws MessagingException {
+        usuario.setRutaImagen("https://www.4x4.ec/overlandecuador/wp-content/uploads/2017/06/default-user-icon-8.jpg");
         model = registroService.crearUsuario(model, usuario);
         return "/registro/salida";
     }
