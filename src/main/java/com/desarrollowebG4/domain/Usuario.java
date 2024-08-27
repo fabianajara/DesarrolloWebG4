@@ -20,19 +20,25 @@ public class Usuario implements Serializable {
     @Column(name = "id_usuario")
     private Long id;
 
-    @Column(name = "nombre")
+   @Column(name = "username")
     private String username;
 
-    @Column(name = "email")
-    private String correo;
+    @Column(name = "nombre")
+    private String nombre;
 
-    @Column(name = "contrasena")
+    @Column(name = "apellidos")
+    private String apellidos;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "correo")
+    private String correo;
 
     @Column(name = "telefono")
     private String telefono;
 
-    @Column(name = "usuario_imagen")
+    @Column(name = "ruta_imagen")
     private String rutaImagen;
 
     @OneToMany(mappedBy = "usuario") // La propiedad debe coincidir con la propiedad en la entidad Rol

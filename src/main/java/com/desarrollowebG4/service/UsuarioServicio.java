@@ -11,7 +11,7 @@ import java.util.Optional;
  *
  * @author code-
  */
-public interface UsuarioService {
+public interface UsuarioServicio {
     
     //Busca un usuario por su ID.
      

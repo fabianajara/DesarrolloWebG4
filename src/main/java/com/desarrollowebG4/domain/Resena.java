@@ -7,7 +7,8 @@ package com.desarrollowebG4.domain;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
+import java.util.Optional;
+import lombok.Data;
 
 @Entity
 @Table(name = "resena")

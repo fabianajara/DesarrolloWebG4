@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.desarrollowebG4</groupId>
     <artifactId>DesarrolloWebG4</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>DesarrolloWebG4</name>
     <description>Proyecto Final Desarrollo de Aplicaciones Web. Grupo 4.</description>
         

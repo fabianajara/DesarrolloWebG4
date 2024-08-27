@@ -2,12 +2,12 @@ package com.desarrollowebG4.service.impl;
 
 import com.desarrollowebG4.dao.UsuarioDao;
 import com.desarrollowebG4.domain.Usuario;
-import com.desarrollowebG4.service.UsuarioService;
+import com.desarrollowebG4.service.UsuarioServicio;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import com.desarrollowebG4.dao.RolDao;
 @Service
-public class UsuarioServiceImpl implements UsuarioService {
+public class UsuarioServiceImpl implements UsuarioServicio {
 
     private final UsuarioDao usuarioDao;
     

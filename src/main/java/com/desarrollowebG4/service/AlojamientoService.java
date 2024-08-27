@@ -12,8 +12,6 @@ public interface AlojamientoService {
     public void save(Alojamiento alojamiento);
     public void delete(Alojamiento alojamiento);
 
-    public Object obtenerTodosLosAlojamientos();
-
 }
 
 

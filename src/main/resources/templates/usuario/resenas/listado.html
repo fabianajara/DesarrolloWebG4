@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/plantilla :: head}">
-    <title>Listado de Reseñas</title>
+    <title>HomeAways</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
+    
 <body>
-    <header th:replace="~{layout/plantilla :: header}"/>
+    <header th:replace="~{layout/plantilla :: header}"></header>
+     
 
-    <!-- Fragmento para agregar una nueva reseña -->
-    <section th:replace="~{usuario/resena/fragmento :: nuevaResena}"/>
-    <!-- Fragmento para modificar una reseña -->
-    <section th:replace="~{usuario/resena/fragmento :: modificarResena}"/>
-    <!-- Fragmento para listar reseñas -->
-    <section th:replace="~{usuario/resena/fragmento :: listadoResenas}"/>
+        <section th:replace="~{usuario/resenas/fragmento :: nuevaResena}"/>
+       <section th:replace="~{usuario/resenas/fragmento :: modificarResena}"/>
+        <section th:replace="~{usuario/resenas/fragmento :: listadoResenas}"/>
+        
 
-    <footer th:replace="~{layout/plantilla :: footer}"/>
-</body>
+        <footer th:replace="~{layout/plantilla :: footer}"/>      
+    </body>
 </html>

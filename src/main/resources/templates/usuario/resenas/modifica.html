@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantilla :: head}">
+    <title th:text="${resena.idResena == null ? 'Agregar Reseña' : 'Modificar Reseña'}"></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h2 th:text="${resena.idResena == null ? 'Agregar Reseña' : 'Modificar Reseña'}" class="mt-4"></h2>
+        <form th:action="@{/resenas/guardar}" th:object="${resena}" method="POST" class="was-validated">
+            <div class="mb-3">
+                <label for="calificacion">Calificación</label>
+                <input type="number" class="form-control" id="calificacion" th:field="*{calificacion}" step="0.1" min="0" max="5" required>
+            </div>
+            <div class="mb-3">
+                <label for="comentario">Comentario</label>
+                <textarea class="form-control" id="comentario" th:field="*{comentario}" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="fecha">Fecha</label>
+                <input type="date" class="form-control" id="fecha" th:field="*{fecha}" required>
+            </div>
+            <div class="mb-3">
+                <label for="idUsuario">Usuario</label>
+                <select class="form-control" id="idUsuario" th:field="*{usuario.idUsuario}" required>
+                    <option th:each="usuario : ${usuarios}" th:value="${usuario.idUsuario}" th:text="${usuario.nombre}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="idAlojamiento">Alojamiento</label>
+                <select class="form-control" id="idAlojamiento" th:field="*{alojamiento.idAlojamiento}" required>
+                    <option th:each="alojamiento : ${alojamientos}" th:value="${alojamiento.idAlojamiento}" th:text="${alojamiento.nombre}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="/resenas" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>
