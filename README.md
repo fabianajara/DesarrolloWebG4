@@ -42,7 +42,7 @@
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/tu-usuario/home-away.git
+git clone https://github.com/tu-usuario/DesarrolloWebG4.git
 cd home-away
 
 # Ejecutar desde tu IDE con soporte para Spring Boot
