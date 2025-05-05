@@ -21,10 +21,10 @@
 ## 🖼️ Vista previa del proyecto
 
 ### Página principal
-![Página principal](imgsReadme/Index.png)
+![Página principal](imgsReadme/HA_Index.jpg)
 
 ### Filtro de búsqueda
-![Filtro de búsqueda](imgsReadme/Filtros.png)
+![Filtro de búsqueda](imgsReadme/HA_Filtros.jpg)
 
 ---
 
